@@ -1,6 +1,6 @@
 package com.codedifferently.casino.utilities;
 /**
- * Author: Aldo Almeida
+ * @author Aldo Almeida
  */
 
 public class BoxMan {
