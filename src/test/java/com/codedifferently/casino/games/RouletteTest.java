@@ -1,5 +1,5 @@
 package com.codedifferently.casino.games;
 
-public class Roulette {
+public class RouletteTest {
     
 }

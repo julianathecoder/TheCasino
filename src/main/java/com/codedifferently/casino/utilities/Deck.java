@@ -7,7 +7,7 @@ package com.codedifferently.casino.utilities;
 public class Deck {
 
     public void add(){
-        int number = 0;
+        int newNumber = 0;
 
         for(int i = 0; i < 5; i++)
         {
