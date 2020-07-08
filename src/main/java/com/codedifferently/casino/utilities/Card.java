@@ -4,23 +4,30 @@ package com.codedifferently.casino.utilities;
  * @author Keseana Howard
  */
 
-public enum Suit{CLUBS, DIAMONDS, HEARTDS, SPADES}
-public enum Rank{
-    A(1), Ace(11), J(10), Q(10), K(10), TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10);
-    
-    private int numericalValue;
-    
-    private Rank(int numericalValue){
-        this.numericalValue = numericalValue;
-    }
-    public int getNUmericalValue(){
-        return numericalValue;
-    }
-}
-public enum Color{BLACK, RED}
-
 public class Card {
+
+    public enum Rank{
+        Ace(1), DUECE(2), THREE(3), 
+        FOUR(4), FIVE(5), SIX(6), 
+        SEVEN(7), EIGHT(8), NINE(9), 
+        TEN(10), JACK(10), QUEEN(10), 
+        KING(10);
     
+        private final int rankValue;
+    
+        private Rank(int rankValue){
+            this.rankValue = rankValue; 
+        }
+
+        public int getRank(){ 
+            return rankValue; 
+        }
+    }
+
+    public enum Suit{CLUBS, DIAMONDS, HEARTDS, SPADES}
+    public enum Color{BLACK, RED}
+    
+
     private Suit suit;
     private Rank rank;
     private Color color;
@@ -44,3 +51,4 @@ public class Card {
     }
 
 }
+
