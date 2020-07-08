@@ -1,6 +1,8 @@
 package com.codedifferently.casino.utilities;
 
-//Filiberto
+/**
+ * @author Filiberto Camarillo
+ */
 
 public class StickManTest {
     
