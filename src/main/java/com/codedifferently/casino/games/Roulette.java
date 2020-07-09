@@ -63,11 +63,13 @@ public class Roulette {
     
         //If user inputs 'n' (no), print Rules for Roulette from Rules.
         if (vCheck1.equals("n")) {
-<<<<<<< HEAD
-            System.out.println(Rules.getRouletteRules);
-=======
-            Rules.getRouletteRules();
->>>>>>> 4f6e8c61ce48767eeed885eb161ffc619af290cb
+
+            System.out.println(Rules.rouletteRules());
+
+            Rules.rouletteRules();
+
+            System.out.println(Rules.rouletteRules());
+
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException ex) {
