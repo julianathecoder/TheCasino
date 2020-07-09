@@ -15,7 +15,6 @@ public class DeckTest {
     
     @Test
     public void constructorTest(){
-
         Deck deckTest = new Deck();
 
         Assert.assertNotNull(deckTest);
@@ -23,12 +22,48 @@ public class DeckTest {
 
     @Test
     public void pullFromDeckTest(){
+        Deck deckTest = new Deck();
 
-        Deck deck = new Deck();
+        Card actual = deckTest.pullFromDeck();
 
-        Card actual = deck.pullFromDeck();
-        Card expected = new Card(Suit.SPADES, Color.BLACK, Rank.KING);
+        Assert.assertEquals(Suit.SPADES, actual.getSuit());
+        Assert.assertEquals(Color.BLACK, actual.getColor());
+        Assert.assertEquals(Rank.KING, actual.getRank());
+    }
+
+    @Test
+    public void getDeckSizeTest(){
+        Deck deckTest = new Deck();
+
+        int actual = deckTest.getDeckSize();
+        int expected = 52;
+        
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getDeckSizeTest2(){
+        Deck deckTest = new Deck();
+
+        deckTest.pullFromDeck();
+        deckTest.pullFromDeck();
+
+        int actual = deckTest.getDeckSize();
+        int expected = 50;
 
         Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shuffleTest(){
+        Deck deckTest = new Deck();
+
+        Card actual = deckTest.pullFromDeck();
+        deckTest.shuffle();
+        Card expected = deckTest.pullFromDeck();
+
+        Assert.assertNotEquals(expected.getSuit(), actual.getSuit());
+        Assert.assertNotEquals(expected.getColor(), actual.getColor());
+        Assert.assertNotEquals(expected.getRank(), actual.getRank());
     }
 }
