@@ -1,8 +1,7 @@
 package com.codedifferently.casino.utilities;
 
 import java.util.ArrayList;
-//import java.util.Arrays;
-import java.util.Random;
+import java.util.Collections;
 
 import com.codedifferently.casino.utilities.cardenums.Color;
 import com.codedifferently.casino.utilities.cardenums.Rank;
@@ -14,52 +13,39 @@ import com.codedifferently.casino.utilities.cardenums.Suit;
 
 public class Deck {
 
-    //private Card[] cards;
-    private ArrayList<Card> cards = new ArrayList<Card>(52);
+    private ArrayList<Card> cards = new ArrayList<Card>();
 
     public Deck(){
-        //cards = new Card[52];
-
-        Random rIndex = new Random();
-        int randomIndex = rIndex.nextInt(52);
-        Suit[] suits = Suit.values();
-        Color currentColor = null;
-        Rank[] ranks = Rank.values();
+        Color color = null;
         
+        for(Suit suit : Suit.values()){
 
-        for(int i = 0; i < suits.length; i++){
-            Suit currentSuit = suits[i];
-
-            if(currentSuit.equals(Suit.SPADES) || currentSuit.equals(Suit.CLUBS))
-                currentColor = Color.BLACK;
+            if(suit.equals(Suit.SPADES) || suit.equals(Suit.CLUBS))
+                color = Color.BLACK;
             else
-                currentColor = Color.RED;
+                color = Color.RED;
 
-            for(int j = 0; j < ranks.length; j++){
-                Rank currentRank = ranks[i];
-                Card currentCard = new Card(currentSuit, currentColor, currentRank);
+            for(Rank rank : Rank.values()){
 
-                if(!(cards.contains(currentCard))){                 //cards[randomIndex] == null){
-                    cards.add(currentCard);     //cards[randomIndex] = currentCard;
-                }
+                Card currentCard = new Card(suit, color, rank);
+                cards.add(currentCard); 
             }
         }
     }
 
+    public void shuffle(){
+        Collections.shuffle(cards);
+    }
+
     public int getDeckSize(){
         return cards.size();
-    }
+    } 
 
     public Card pullFromDeck(){
 
-        if(!(cards.isEmpty())){
-            //Card currentCard = cards[getDeckSize() - 1];
-            //Card[] tempCards = Arrays.copyOf(cards, getDeckSize());
-            return cards.remove(cards.size() - 1);
-        }
-        
-        return null;
+        if(cards.isEmpty())
+            shuffle();
+
+        return cards.remove(cards.size() - 1);
     }
-
-
 }
