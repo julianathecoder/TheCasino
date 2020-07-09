@@ -10,7 +10,7 @@ import com.codedifferently.casino.utilities.Player;
 public class Casino {
     public static void main(String[] args){
         // For testing
-        CardGame goFish = new CardGame("Go Fish", 4, 2,32);
+        CardGame goFish = new CardGame("Go Fish", 4, 2);
         Player bob=new Player("Bob",21,2030.00);
         Player bill=new Player("Bill",25,3400.00);
         Player jill=new Player("Jill",24,8000.00);
