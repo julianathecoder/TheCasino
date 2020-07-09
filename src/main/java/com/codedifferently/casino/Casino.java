@@ -3,13 +3,14 @@ package com.codedifferently.casino;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.codedifferently.casino.games.Games;
+import com.codedifferently.casino.games.CardGame;
+import com.codedifferently.casino.utilities.Card;
 import com.codedifferently.casino.utilities.Player;
 
 public class Casino {
     public static void main(String[] args){
         // For testing
-        Games goFish = new Games("Go Fish", 4, 2);
+        CardGame goFish = new CardGame("Go Fish", 4, 2,32);
         Player bob=new Player("Bob",21,2030.00);
         Player bill=new Player("Bill",25,3400.00);
         Player jill=new Player("Jill",24,8000.00);
@@ -29,6 +30,17 @@ public class Casino {
             }
             else{
                 System.out.printf("%s could not join the game %s\n",currentPlayer.getName(),goFish.getGameName());
+            }
+        }
+        for (Player player : goFish.getPlayerList()) {
+            Player currentPlayer=player;
+            System.out.printf("Current turn: %s\n", currentPlayer.getName());
+            currentPlayer.giveCard(goFish.pullFromDeck());
+            currentPlayer.giveCard(goFish.pullFromDeck());
+            goFish.shuffleDeck();
+            System.out.println("------ Current Hand -----");
+            for (Card card : currentPlayer.checkCards()) {
+                System.out.printf("%s %s %s\n",card.getColor(),card.getRank(),card.getSuit());
             }
         }
 

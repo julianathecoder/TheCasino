@@ -1,5 +1,7 @@
 package com.codedifferently.casino.games;
 
+import java.util.ArrayList;
+
 import com.codedifferently.casino.utilities.Player;
 
 import org.junit.Assert;
@@ -221,6 +223,52 @@ public class GamesTest {
 
         // Then
         Assert.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void playerListTest(){
+        // Given
+        game.resetGame();
+        Player bob=new Player("Bob",21,2000.00);
+        Player bill=new Player("Bill",21,2000.00);
+        ArrayList<Player> players= new ArrayList<Player>();
+        players.add(bob);
+        players.add(bill);
+
+        // When
+        game.addPlayer(bob);
+        game.addPlayer(bill);
+        ArrayList<Player> actual=game.getPlayerList();
+
+        // Then
+        Assert.assertEquals(players, actual);
+
+    }
+
+    @Test
+    public void playerListTest2(){
+        // Given
+        game.resetGame();
+        Player bob=new Player("Bob",21,2000.00);
+        Player bill=new Player("Bill",21,1300.00);
+        Player jill=new Player("Jill",21,2600.00);
+        Player Dill=new Player("Dill",22,6230.00);
+        ArrayList<Player> players= new ArrayList<Player>();
+        players.add(bob);
+        players.add(bill);
+        players.add(jill);
+        players.add(Dill);
+
+        // When
+        game.addPlayer(bob);
+        game.addPlayer(bill);
+        game.addPlayer(jill);
+        game.addPlayer(Dill);
+        ArrayList<Player> actual=game.getPlayerList();
+
+        // Then
+        Assert.assertEquals(players, actual);
 
     }
     
