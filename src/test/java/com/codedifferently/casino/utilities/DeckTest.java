@@ -1,7 +1,9 @@
 package com.codedifferently.casino.utilities;
+
 /**
- * @author Juliana Paul
+ * @author Keseana Howard
  */
+
 public class DeckTest {
     
 }
