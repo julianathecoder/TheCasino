@@ -40,10 +40,10 @@ public class CardTest{
     @Test
     public void getRankTest(){
 
-        Card cardTest = new Card(Suit.HEARTS, Color.BLACK, Rank.DUECE);
+        Card cardTest = new Card(Suit.HEARTS, Color.BLACK, Rank.DEUCE);
 
         Rank actual = cardTest.getRank();
-        Rank expected = Rank.DUECE;
+        Rank expected = Rank.DEUCE;
 
         Assert.assertEquals(expected, actual);
     }
