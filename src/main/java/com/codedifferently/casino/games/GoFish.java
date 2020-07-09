@@ -14,6 +14,7 @@ import com.codedifferently.casino.utilities.cardenums.Rank;
 public class GoFish extends CardGame{
     
     private HashMap<Player, ArrayList<Card>> hmap = new HashMap<Player, ArrayList<Card>>();
+    private ArrayList<Card> stockPile = new ArrayList<Card>();
     private final int cardsPerPerson;
 
     public GoFish(){
@@ -56,13 +57,42 @@ public class GoFish extends CardGame{
     }
 
     public Card pullFromDeck(Player player, Rank rankWanted){
-        
+
+        ArrayList<Card> hand = hmap.get(player);
         Card newCard = pullFromDeck();
-        if(newCard.getRank().equals(rankWanted)){
-            ArrayList<Card> hand = hmap.get(player);
-            hand.add(newCard);
+
+        for(Card c : hand){
+            if(c.getRank().equals(newCard.getRank()))
+                hand.add(newCard);
+            else
+                addToStockPile(newCard);
         }
         return null;
+    }
+
+    public boolean checkForBooks(Player player){
+        int count = 0;
+
+        ArrayList<Card> hand = hmap.get(player);
+
+        for(Card one : hand){
+            for(Card two : hand){
+                if(one.getRank().equals(two.getRank()))
+                    count++;
+            }
+
+            if(count == 4){ 
+                for(int i = 0; i < 4; i++)
+                    hand.remove(one);
+                
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addToStockPile(Card card){
+       stockPile.add(card);
     }
 
     public void playerTurn(Player playerAsking, Player playerAsked, Rank rankWanted){
@@ -71,7 +101,7 @@ public class GoFish extends CardGame{
         if(gotCards)
             giveCards(playerAsking, playerAsked, rankWanted);
         else
-
+            pullFromDeck(playerAsking, rankWanted);
     }
 
     public void deal(){
