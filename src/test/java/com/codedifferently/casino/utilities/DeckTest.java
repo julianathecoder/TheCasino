@@ -62,8 +62,6 @@ public class DeckTest {
         deckTest.shuffle();
         Card expected = deckTest.pullFromDeck();
 
-        Assert.assertNotEquals(expected.getSuit(), actual.getSuit());
-        Assert.assertNotEquals(expected.getColor(), actual.getColor());
-        Assert.assertNotEquals(expected.getRank(), actual.getRank());
+        Assert.assertNotEquals(expected, actual);
     }
 }
