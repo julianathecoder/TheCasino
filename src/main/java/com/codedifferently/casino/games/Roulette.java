@@ -8,6 +8,7 @@ import com.codedifferently.casino.intereface.Gamble;
 import com.codedifferently.casino.intereface.Game;
 import com.codedifferently.casino.utilities.BallResults;
 import com.codedifferently.casino.utilities.Player;
+import com.codedifferently.casino.utilities.Rules;
 
 
 
@@ -15,7 +16,7 @@ import com.codedifferently.casino.utilities.Player;
 
 public class Roulette {
 
-    public static void main(String[] args) {
+/**     public static void main(String[] args) {
         Random r = new Random();
         int money = 1000;
 
@@ -41,6 +42,57 @@ public class Roulette {
 
         player.close();
     }
+    */
     
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Welcome to the Roulette Game...");
+        System.out.println("Have you played before? Y/N.");
+        String vCheck1 = input.nextLine();
+    
+        //Validation Check -- Removes invalid inputs.
+        while (!(vCheck1.equals("y")) && !(vCheck1.equals("n"))) {
+            System.out.println("Incorrect, please type Y/N.");
+            vCheck1 = input.nextLine();
+        }
+    
+        //If user inputs 'y' (yes), print below.
+        if (vCheck1.equals("y")) {
+            System.out.println("Good luck!");
+        }
+    
+        //If user inputs 'n' (no), print Rules for Roulette from Rules.
+        if (vCheck1.equals("n")) {
+            System.out.println(rules.rouletteRules);
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+    
+        }
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+    
+        // Setting up variables to be updated in the loop to be printed after game.
+        String confirmationCashout = "";
+        String confirmationRestart = "";
+        String bet = "";
+        String answer = "";
+        int winStreak = 0;
+        int gamble = 0;
+        int payout = 0;
+        int randomNum = 0;
+        int money = 1000;
+        int rounds = 1;;
+        Random rand = new Random();
 
+    }
 }
+
+
+
+
