@@ -4,11 +4,9 @@ import java.util.ArrayList;
 
 import com.codedifferently.casino.intereface.Game;
 import com.codedifferently.casino.utilities.Player;
-//import com.codedifferently.casino.utilities.Rules;
 
 public class Games implements Game {
     private String gameName;
-    //private Rules rules;
     private ArrayList<Player> players;
     private int maxPlayers;
     private int minPlayers;
@@ -18,7 +16,6 @@ public class Games implements Game {
         this.maxPlayers=max;
         this.minPlayers=min;
         this.players= new ArrayList<Player>();
-        //this.rules=new Rules();
     }
     public String getGameName(){
         return this.gameName;
@@ -33,10 +30,6 @@ public class Games implements Game {
     }
     public int getPlayerAmount(){
         return this.players.size();
-    }
-
-    public String getRules(){
-        return "Rules";
     }
 
     public boolean addPlayer(Player player){

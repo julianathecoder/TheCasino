@@ -142,19 +142,6 @@ public class GamesTest {
     }
 
     @Test
-    public void getRulesTest(){
-        // Given
-        String expected="Rules";
-
-        // When
-        String actual=game.getRules();
-
-        // Then
-        Assert.assertEquals(expected, actual);
-
-    }
-
-    @Test
     public void startGameTest(){
         // Given
         Player bob=new Player("Bob",21,2000.00);

@@ -1,5 +1,7 @@
 package com.codedifferently.casino.utilities;
 
+import java.util.ArrayList;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -135,6 +137,71 @@ public class PlayerTest {
 
         // Then
         Assert.assertEquals(expected,actualMoney,0.00001);
+    }
+
+    @Test
+    public void getHandTest(){
+        // Given
+        String name="Bob";
+        int age=21;
+        double money=2000.00;
+        Card card=new Card(null, null,null);
+        ArrayList<Card> expected=new ArrayList<Card>();
+        expected.add(card);
+        expected.add(card);
+
+        // When
+        Player player=new Player(name,age,money);
+        player.giveCard(card);
+        player.giveCard(card);
+        ArrayList<Card> actual=player.checkCards();
+        
+
+        // Then
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void clearHandTest(){
+        // Given
+        String name="Bob";
+        int age=21;
+        double money=2000.00;
+        int expected=0;
+
+        // When
+        Player player=new Player(name,age,money);
+        player.giveCard(new Card(null, null, null));
+        player.giveCard(new Card(null, null, null));
+        player.giveCard(new Card(null, null, null));
+        player.emptyHand();
+        int actual=player.getHandSize();
+        
+
+        // Then
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void getHandSizeTest(){
+        // Given
+        String name="Bob";
+        int age=21;
+        double money=2000.00;
+        int expected=5;
+
+        // When
+        Player player=new Player(name,age,money);
+        player.giveCard(new Card(null, null, null));
+        player.giveCard(new Card(null, null, null));
+        player.giveCard(new Card(null, null, null));
+        player.giveCard(new Card(null, null, null));
+        player.giveCard(new Card(null, null, null));
+        int actual=player.getHandSize();
+        
+
+        // Then
+        Assert.assertEquals(expected,actual);
     }
     
 }
