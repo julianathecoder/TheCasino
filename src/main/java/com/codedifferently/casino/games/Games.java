@@ -38,6 +38,9 @@ public class Games implements Game {
         return false;
         
     }
+    public ArrayList<Player> getPlayerList(){
+        return this.players;
+    }
 
     public void resetGame(){
         this.players.clear();
