@@ -23,9 +23,9 @@ public class BlackJack extends CardGame implements Gamble {
     }
     
     public String betLog(){
-        String output="";
+        String output="\\---------- BETS ----------/\n";
         for (Player player : this.bets.keySet()) {
-            output+= player.getName() +": "+bets.get(player)+"\n";
+            output+= "\t"+player.getName() +": "+bets.get(player)+"\n";
         }
         return output;
     }

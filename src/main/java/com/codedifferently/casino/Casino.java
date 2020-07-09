@@ -2,7 +2,9 @@ package com.codedifferently.casino;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Scanner;
 
+import com.codedifferently.casino.games.BlackJack;
 import com.codedifferently.casino.games.CardGame;
 import com.codedifferently.casino.utilities.Card;
 import com.codedifferently.casino.utilities.Player;
@@ -10,7 +12,8 @@ import com.codedifferently.casino.utilities.Player;
 public class Casino {
     public static void main(String[] args){
         // For testing
-        CardGame goFish = new CardGame("Go Fish", 4, 2);
+        boolean gamePlaying=false;
+        BlackJack blackjack = new BlackJack();
         Player bob=new Player("Bob",21,2030.00);
         Player bill=new Player("Bill",25,3400.00);
         Player jill=new Player("Jill",24,8000.00);
@@ -25,32 +28,36 @@ public class Casino {
 
         while(!queue.isEmpty()){
             Player currentPlayer=queue.poll();
-            if(goFish.addPlayer(currentPlayer)){
-                System.out.printf("%s has joined the game %s\n",currentPlayer.getName(),goFish.getGameName());
+            if(blackjack.addPlayer(currentPlayer)){
+                System.out.printf("%s has joined the game %s\n",currentPlayer.getName(),blackjack.getGameName());
             }
             else{
-                System.out.printf("%s could not join the game %s\n",currentPlayer.getName(),goFish.getGameName());
+                System.out.printf("%s could not join the game %s\n",currentPlayer.getName(),blackjack.getGameName());
             }
         }
-        /*
-        for (Player player : goFish.getPlayerList()) {
-            Player currentPlayer=player;
-            System.out.printf("Current turn: %s\n", currentPlayer.getName());
-            currentPlayer.giveCard(goFish.pullFromDeck());
-            currentPlayer.giveCard(goFish.pullFromDeck());
-            goFish.shuffleDeck();
-            System.out.println("------ Current Hand -----");
-            for (Card card : currentPlayer.checkCards()) {
-                System.out.printf("%s %s %s\n",card.getColor(),card.getRank(),card.getSuit());
+        if(blackjack.startGame()){
+            gamePlaying=true;
+            Scanner scan=new Scanner(System.in);
+            while(gamePlaying){
+                for (Player player : blackjack.getPlayerList()) {
+                    Player currentPlayer=player;
+                    System.out.printf("%s place your bet: ", currentPlayer.getName());
+                    double bet=scan.nextDouble();
+                    blackjack.bet(currentPlayer, bet);
+                    System.out.println();
+                }
+                gamePlaying=false;
+                scan.close();
             }
+            blackjack.dealCards(2);
+            System.out.println(blackjack.betLog());
         }
-        */
-        goFish.dealCards(2);
+        else
+            System.out.println("Not enough players to start.");
 
-        for (Player player : goFish.getPlayerList()) {
+        for (Player player : blackjack.getPlayerList()) {
             Player currentPlayer=player;
-            System.out.printf("%s\n", currentPlayer.getName());
-            System.out.println("------ Current Hand -----");
+            System.out.printf("------ %s's Hand -----\n", currentPlayer.getName());
             for (Card card : currentPlayer.checkCards()) {
                 System.out.printf("%s %s %s\n",card.getColor(),card.getRank(),card.getSuit());
             }
