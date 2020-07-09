@@ -4,10 +4,10 @@ package com.codedifferently.casino.games;
 import java.util.Random;
 import java.util.Scanner;
 
-import com.codedifferently.casino.intereface.Gamble;
-import com.codedifferently.casino.intereface.Game;
-import com.codedifferently.casino.utilities.BallResults;
-import com.codedifferently.casino.utilities.Player;
+//import com.codedifferently.casino.intereface.Gamble;
+//import com.codedifferently.casino.intereface.Game;
+//import com.codedifferently.casino.utilities.BallResults;
+//import com.codedifferently.casino.utilities.Player;
 import com.codedifferently.casino.utilities.Rules;
 
 
@@ -51,19 +51,18 @@ public class Roulette {
         String vCheck1 = input.nextLine();
     
         //Validation Check -- Removes invalid inputs.
-        while (!(vCheck1.equals("y")) && !(vCheck1.equals("n"))) {
+        while (!(vCheck1.equals("Y")) && !(vCheck1.equals("N"))) {
             System.out.println("Incorrect, please type Y/N.");
             vCheck1 = input.nextLine();
         }
     
         //If user inputs 'y' (yes), print below.
-        if (vCheck1.equals("y")) {
+        if (vCheck1.equals("Y")) {
             System.out.println("Good luck!");
         }
     
         //If user inputs 'n' (no), print Rules for Roulette from Rules.
-        if (vCheck1.equals("n")) {
-
+        if (vCheck1.equals("N")) {
             System.out.println(Rules.rouletteRules());
 
             Rules.rouletteRules();
@@ -83,7 +82,7 @@ public class Roulette {
             Thread.currentThread().interrupt();
         }
     
-        // Setting up variables to be updated in the loop to be printed after game.
+        /**  Setting up variables to be updated in the loop to be printed after game.
         String confirmationCashout = "";
         String confirmationRestart = "";
         String bet = "";
@@ -95,6 +94,9 @@ public class Roulette {
         int money = 1000;
         int rounds = 1;;
         Random rand = new Random();
+        */
+
+        input.close();
 
     }
 }
