@@ -2,26 +2,36 @@ package com.codedifferently.casino.games;
 
 import com.codedifferently.casino.utilities.Card;
 import com.codedifferently.casino.utilities.Deck;
+import com.codedifferently.casino.utilities.Player;
 
 public class CardGame extends Games {
-    private int numOfCards;
     private Deck deck;
 
-    public CardGame(String name,int max, int min, int numOfCards){
+    public CardGame(String name,int max, int min){
         super(name, max, min);
-        this.numOfCards=numOfCards;
         this.deck=new Deck();
-    }
-    
-    public int getNumOfCards(){
-        return this.numOfCards;
     }
 
     public Card pullFromDeck(){
-        return this.deck.pullFromDeck();
+        if(this.deck.getDeckSize()!=0){
+            return this.deck.pullFromDeck();
+        }
+        else{
+            this.deck=new Deck();
+            return this.deck.pullFromDeck();
+        }
     }
 
     public void shuffleDeck(){
         this.deck.shuffle();
+    }
+
+    public void dealCards(int num){
+        if(super.startGame()){
+            for (Player player : super.getPlayerList()) {
+                for(int i=0;i<num;i++)
+                    player.giveCard(this.deck.pullFromDeck());
+            }
+        }
     }
 }

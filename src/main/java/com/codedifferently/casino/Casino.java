@@ -32,12 +32,24 @@ public class Casino {
                 System.out.printf("%s could not join the game %s\n",currentPlayer.getName(),goFish.getGameName());
             }
         }
+        /*
         for (Player player : goFish.getPlayerList()) {
             Player currentPlayer=player;
             System.out.printf("Current turn: %s\n", currentPlayer.getName());
             currentPlayer.giveCard(goFish.pullFromDeck());
             currentPlayer.giveCard(goFish.pullFromDeck());
             goFish.shuffleDeck();
+            System.out.println("------ Current Hand -----");
+            for (Card card : currentPlayer.checkCards()) {
+                System.out.printf("%s %s %s\n",card.getColor(),card.getRank(),card.getSuit());
+            }
+        }
+        */
+        goFish.dealCards(2);
+
+        for (Player player : goFish.getPlayerList()) {
+            Player currentPlayer=player;
+            System.out.printf("%s\n", currentPlayer.getName());
             System.out.println("------ Current Hand -----");
             for (Card card : currentPlayer.checkCards()) {
                 System.out.printf("%s %s %s\n",card.getColor(),card.getRank(),card.getSuit());
