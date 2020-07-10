@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Test;
+/**
+ * @author Aldo Almeida
+ */
 
 public class PlayerTest {
 

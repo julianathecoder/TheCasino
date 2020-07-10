@@ -22,6 +22,8 @@ public class Casino {
         Queue<Player> queue=new LinkedList<Player>();
         queue.add(bob);
         queue.add(bill);
+        queue.add(jill);
+        queue.add(lil);
 
         while(!queue.isEmpty()){
             Player currentPlayer=queue.poll();
@@ -55,6 +57,10 @@ public class Casino {
                             // Displays current player's hand
                             checkHand(currentPlayer,blackjack);
 
+                            // Checks for Ace
+                            if(blackjack.checkForAce(player))
+                                System.out.println(blackjack.convertWithAces(player));
+
                             // Asking player until stand or bust
                             System.out.printf("%s, What would you like to do? \n (Hit) (Stand) (Double)\n",currentPlayer.getName());
                             String choice=scan.next();
@@ -75,6 +81,8 @@ public class Casino {
                                 }
                                 // Makes sure if the user ended their turn without busting
                                 if(!done){
+                                    if(blackjack.checkForAce(player))
+                                        System.out.println(blackjack.convertWithAces(player));
                                     checkHand(currentPlayer,blackjack);
                                     System.out.printf("%s, What would you like to do? \n (Hit) (Stand) (Double)\n",currentPlayer.getName());
                                     choice=scan.next();

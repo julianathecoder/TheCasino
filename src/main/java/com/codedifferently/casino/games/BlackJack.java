@@ -7,6 +7,9 @@ import com.codedifferently.casino.intereface.Gamble;
 import com.codedifferently.casino.utilities.Card;
 import com.codedifferently.casino.utilities.Dealer;
 import com.codedifferently.casino.utilities.Player;
+/**
+ * @author Aldo Almeida
+ */
 
 public class BlackJack extends CardGame implements Gamble {
     private HashMap<Player,Double> bets;
@@ -55,7 +58,7 @@ public class BlackJack extends CardGame implements Gamble {
     }
 
     public void hit(Player player){
-        player.giveCard(deck.pullFromDeck());//this.dealer.dealCard(player);
+        this.dealer.dealCard(player);
     }
 
     public void win(Player player) {
@@ -74,7 +77,7 @@ public class BlackJack extends CardGame implements Gamble {
     }
 
     public void doubleMove(Player player){
-        player.giveCard(deck.pullFromDeck());//this.dealer.dealCard(player);
+        this.dealer.dealCard(player);
         double moneyDoubled=this.bets.get(player) * 2;
         this.bets.remove(player);
         bet(player, moneyDoubled);
@@ -100,6 +103,31 @@ public class BlackJack extends CardGame implements Gamble {
             total+=card.getRank().returnRank();
         }
         return total;
+    }
+
+    public String convertWithAces(Player player){
+        ArrayList<Integer> results=new ArrayList<Integer>();
+        int total=0;
+        int acesFound=0;
+
+        for (Card card : player.checkCards()) {
+            total+=card.getRank().returnRank();
+            if(card.getRank().returnRank()==1)
+                acesFound++;
+        }
+        results.add(total);
+
+        if(acesFound>1){
+            total+=1*acesFound;
+            if(total<=21)
+                results.add(total);
+        }
+        else
+            if(total+11<=21)
+                results.add(total+11);
+
+        return String.format("Possible outcomes with aces: %s", results.toString());
+
     }
 
     public void calculateWinner(){
