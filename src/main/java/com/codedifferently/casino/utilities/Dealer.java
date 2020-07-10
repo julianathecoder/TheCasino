@@ -9,7 +9,7 @@ public class Dealer {
 
      //Keeps track of the number of cards that have been dealt from deck so far
     private int cardsUsed;
-    private ArrayList<Card> cards;
+    private ArrayList<Card> cards = new ArrayList<Card>();
 
     public Card pullFromDeck(){
 
@@ -18,9 +18,6 @@ public class Dealer {
     }
 
     public void dealCard(Player player){
-        if (cardsUsed == cards.size()){
-            throw new IllegalStateException("No cards are left in the deck.");
-        }
         //Get next card and add to hand of the player
          Card removedCard = cards.remove(cards.size() - 1);
          player.checkCards().add(removedCard);
