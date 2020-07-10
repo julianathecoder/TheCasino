@@ -132,6 +132,25 @@ public class GoFishTest {
         Assert.assertEquals(player2Expected, player2Actual);
 
     }
+
+    @Test
+    public void pullFromDeckTest(){
+
+        HashMap<Player, ArrayList<Card>> testMap = goFishTest.getHashMap();
+        ArrayList<Card> player1Hand = testMap.get(p1);
+
+        player1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.ACE));
+        player1Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.FIVE));
+        player1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
+        player1Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.DEUCE));
+        player1Hand.add(new Card(Suit.DIAMONDS, Color.RED, Rank.ACE));
+
+        boolean actual = goFishTest.pullFromDeck(p1, Rank.QUEEN);
+        boolean expected = true;
+
+        Assert.assertEquals(expected, actual);
+
+    }
     
     @Test
     public void showHandTest(){

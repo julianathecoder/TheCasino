@@ -71,12 +71,17 @@ public class GoFish extends CardGame{
     public void giveCards(Player playerAsking, Player playerAsked, Rank rankWanted){
         ArrayList<Card> removeCards = hmap.get(playerAsked);
         ArrayList<Card> addCards = hmap.get(playerAsking);
+        ArrayList<Card> temp = new ArrayList<Card>();
 
         for(Card current : removeCards){
             if(current.getRank().equals(rankWanted)){
-                removeCards.remove(current);
-                addCards.add(current);
+                temp.add(current);
             }
+        }
+
+        for(Card card : temp){
+            removeCards.remove(card);
+            addCards.add(card);
         }
     }
 
