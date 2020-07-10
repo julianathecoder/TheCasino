@@ -22,13 +22,17 @@ public class SevenFreeSlots {
     }
 
     public double spinReels(Player player){
-        return 0;
+        player.gamble(3);
+        return player.getMoney();
     }
 
     public double betMax(Player player){
-        if(player.getMoney() == 0){
-            throw new IllegalStateException("Insefficient credits!");
-        }
+        player.gamble(3);
+        return 0;
+    }
+
+    public double betOne(Player player){
+        player.gamble(1);
         return 0;
     }
 }
