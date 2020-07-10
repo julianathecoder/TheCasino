@@ -108,26 +108,29 @@ public class GoFishTest {
         ArrayList<Card> player1Hand = testMap.get(p1);
         ArrayList<Card> player2Hand = testMap.get(p2);
 
-        player1Hand.add(p1, new Card(Suit.CLUBS, Color.BLACK, Rank.ACE));
-        testMap.add(new Card(Suit.HEARTS, Color.RED, Rank.FIVE));
-        testMap.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
-        testMap.add(new Card(Suit.SPADES, Color.BLACK, Rank.DEUCE));
-        testMap.add(new Card(Suit.DIAMONDS, Color.RED, Rank.ACE));
+        player1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.ACE));
+        player1Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.FIVE));
+        player1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.KING));
+        player1Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.DEUCE));
+        player1Hand.add(new Card(Suit.DIAMONDS, Color.RED, Rank.ACE));
 
-        testMap.add(new Card(Suit.CLUBS, Color.BLACK, Rank.ACE));
-        testMap.add(new Card(Suit.HEARTS, Color.RED, Rank.FIVE));
-        testMap.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
-        testMap.add(new Card(Suit.SPADES, Color.BLACK, Rank.DEUCE));
-        testMap.add(new Card(Suit.DIAMONDS, Color.RED, Rank.ACE));
+        player2Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.ACE));
+        player2Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
+        player2Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.THREE));
+        player2Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.KING));
+        player2Hand.add(new Card(Suit.SPADES, Color.RED, Rank.KING));
 
-        goFishTest.giveCards(p1, p2, Rank.FIVE);
+        goFishTest.giveCards(p1, p2, Rank.KING);
 
-        ArrayList<Card> player2 = testMap.get(p2);
-        boolean hasCards = goFishTest.checkHand(player2, Rank.FIVE);
+        int player1Actual = player1Hand.size();
+        int player2Actual = player2Hand.size();
 
-        if(hasCards){
+        int player1Expected = 7;
+        int player2Expected = 3;
 
-        }
+        Assert.assertEquals(player1Expected, player1Actual);
+        Assert.assertEquals(player2Expected, player2Actual);
+
     }
     
     @Test
