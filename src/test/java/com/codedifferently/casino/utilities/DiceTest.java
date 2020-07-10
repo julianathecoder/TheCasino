@@ -15,24 +15,11 @@ public class DiceTest {
 
     @Test
     public void rollTest(){
-        Dice dice = new dice();
-        //When 
+        //Given 
 
-        int expected = die
-    }
+        //When
 
-    @Test
-    public void getDie1Test(){
-
-    }
-
-    @Test
-    public void getDie2Test(){
-
-    }
-
-    @Test
-    public void getRollTotalTest(){
+        //Then
 
     }
 }
