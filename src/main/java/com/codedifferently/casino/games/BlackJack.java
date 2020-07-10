@@ -105,7 +105,6 @@ public class BlackJack extends CardGame implements Gamble {
     public void calculateWinner(){
        int dealerTotal=14; //dealer.getValueOfCards;
        while(dealerTotal < 16){
-           this.dealer.pullFromDeck();
            dealerTotal=17; //dealer.getValueOfCards;
        }
         int largestNumber=0;
