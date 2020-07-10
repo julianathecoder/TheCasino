@@ -1,45 +1,54 @@
 package com.codedifferently.casino.utilities;
-import java.util.Random;
 /**
  * @author Juliana Paul
  */
 public class Dice {
     
-    private int rollCount;   // # times rolled
-    private int Sides;          // # sides
-    private Random randomGen;   //the random number generator
+    private int die1;
+    private int die2;
 
-    //Construct standard six-sided Dice object
-    public Dice(){
-        this(6);
+    /**
+     * Constructor. Rolls the dice, so they initially show some random values.
+     */
+    
+    public Dice(){ 
+        roll();
     }
     
-    /**
-     * Constructs a Dice object.
-     * @param sides specifies the number of "sides" for the die, e.g., 
-     */
-    public Dice(int sides){
-        Sides = sides;
-        randomGen = new Random();
-    }
-
-    //return a random value in range [1..numSides()]
     public int roll(){
 
-        rollCount++;
-        return randomGen.nextInt(Sides) + 1;
+        die1 = (int)(Math.random()*6) + 1; // 1-6 inclusive
+        die2 = (int)(Math.random()*6) + 1;
+        return die1 + die1;
     }
 
-    public int numOfRolls(){
-	return rollCount;
+    public int getDie1(){
+        
+        return die1;
     }
 
-    public static void main(String[] args){
-        Dice die = new Dice(6);
+    public int getDie2(){
+        
+        return die2;
+    }
 
-        for(int k = 0; k < 2; k++) {
-            int roll = die.roll();
-            System.out.println("roll " + die.numOfRolls() + ": " + roll);
-        }
+    public int getRollTotal(){
+
+        return die1 + die2;
+    }
+
+    public static void main(String[] args) {
+    
+        int die1;  
+        int die2;  
+        int roll;  
+        
+        die1 = (int)(Math.random()*6) + 1;
+        die2 = (int)(Math.random()*6) + 1;
+        roll = die1 + die2;
+        
+        System.out.println("The first die comes up " + die1);
+        System.out.println("The second die comes up " + die2);
+        System.out.println("Your total roll is " + roll);
     }
 }
