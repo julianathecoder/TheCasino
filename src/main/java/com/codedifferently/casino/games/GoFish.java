@@ -24,7 +24,6 @@ public class GoFish extends CardGame{
         if(hmap.size() >= 2 && hmap.size() <= 3)
             cardsPerPerson = 7;
         else
-        //else if(hmap.size() > 3 && hmap.size() <= 6)
             cardsPerPerson = 5;
     }
 
@@ -163,6 +162,6 @@ public class GoFish extends CardGame{
         goFishTest.addPlayer(p1);
         goFishTest.addPlayer(p2);
 
-        System.out.println(goFishTest.showHand(p1));
+        System.out.println(goFishTest.hmap.size());
     }
 }
