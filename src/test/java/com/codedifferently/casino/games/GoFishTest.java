@@ -101,12 +101,12 @@ public class GoFishTest {
         Assert.assertEquals(expected, actual);
     }
 
-    /*@Test
+    @Test
     public void giveCardsTest(){
         
         goFishTest.deal();
         goFishTest.giveCards(p1, p2, Rank.FIVE);
-    }*/
+    }
     
     @Test
     public void showHandTest(){

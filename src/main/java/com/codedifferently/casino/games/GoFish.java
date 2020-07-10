@@ -76,6 +76,10 @@ public class GoFish extends CardGame{
         }
     }
 
+    public HashMap<Player, ArrayList<Card>> getHashMap(){
+        return hmap;
+    } 
+
     public boolean pullFromDeck(Player player, Rank rankWanted){
 
         ArrayList<Card> hand = hmap.get(player);
