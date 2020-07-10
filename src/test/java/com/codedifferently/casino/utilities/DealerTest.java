@@ -9,12 +9,12 @@ import org.junit.Test;
 public class DealerTest {
 
     @Test
-    public void pullFromDeckTest(){
-        
-    }
-
-    @Test
     public void dealCardTest(){
+        //Given 
+
+        //When
+
+        //Then
 
     }
     
