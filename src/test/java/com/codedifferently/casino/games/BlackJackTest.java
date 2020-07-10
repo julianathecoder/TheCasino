@@ -4,7 +4,9 @@ import com.codedifferently.casino.utilities.Player;
 
 import org.junit.Assert;
 import org.junit.Test;
-
+/**
+ * @author Aldo Almeida
+ */
 public class BlackJackTest {
 
     @Test
