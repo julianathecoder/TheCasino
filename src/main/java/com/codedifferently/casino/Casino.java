@@ -90,7 +90,7 @@ public class Casino {
                     scan.close();
                 }
             else
-                System.out.println("Not enough players to start.");
+                System.out.println("Not enough players to start, add more.");
         }
 
         

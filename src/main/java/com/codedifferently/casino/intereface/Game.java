@@ -3,6 +3,9 @@ package com.codedifferently.casino.intereface;
 import java.util.ArrayList;
 
 import com.codedifferently.casino.utilities.Player;
+/**
+ * @author Aldo Almeida
+ */
 
 public interface Game {
     public boolean startGame();
