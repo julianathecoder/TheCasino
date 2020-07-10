@@ -55,11 +55,10 @@ public class BlackJackTest {
     @Test
     public void betLogTest(){
         // Given
-        String output="Aill: 100.0\n";
+        String output="\\---------- BETS ----------/\n";
 
         // When
         BlackJack game=new BlackJack();
-        game.bet(new Player("Aill", 21, 2334.00),100.00);
         String actual=game.betLog();
 
         // Then
