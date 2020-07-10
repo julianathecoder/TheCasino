@@ -1,5 +1,6 @@
 package com.codedifferently.casino.games;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.codedifferently.casino.intereface.Gamble;
@@ -9,12 +10,14 @@ import com.codedifferently.casino.utilities.Player;
 
 public class BlackJack extends CardGame implements Gamble {
     private HashMap<Player,Double> bets;
+    private ArrayList<Player> notBustedPlayers;
     private Dealer dealer;
 
     public BlackJack(){
         super("Black Jack", 11, 1);
         this.bets=new HashMap<Player,Double>();
         this.dealer=new Dealer();
+        this.notBustedPlayers=new ArrayList<Player>();
     }
 
     public int getBetCount(){
@@ -47,13 +50,12 @@ public class BlackJack extends CardGame implements Gamble {
         this.bets.clear();
     }
 
+    public void addStandingPlayer(Player player){
+        this.notBustedPlayers.add(player);
+    }
+
     public void hit(Player player){
-        player.giveCard(this.dealer.pullFromDeck());
-        int total=convertToNumber(player);
-        if(total==21)
-            win(player);
-        else if(convertToNumber(player)>21)
-            lose(player);
+        player.giveCard(deck.pullFromDeck());//this.dealer.dealCard(player);
     }
 
     public void win(Player player) {
@@ -70,11 +72,26 @@ public class BlackJack extends CardGame implements Gamble {
         player.emptyHand();
 
     }
+
+    public void doubleMove(Player player){
+        player.giveCard(deck.pullFromDeck());//this.dealer.dealCard(player);
+        double moneyDoubled=this.bets.get(player) * 2;
+        this.bets.remove(player);
+        bet(player, moneyDoubled);
+    }
+
+    public void insurance(Player player){
+
+    }
     
     public void setUp(){
         if(super.startGame()){
             super.dealCards(2);
         }
+    }
+
+    public boolean checkIfBusted(Player player){
+        return convertToNumber(player) >= 22 || convertToNumber(player) == 0 ;
     }
 
     public int convertToNumber(Player player){
@@ -84,6 +101,35 @@ public class BlackJack extends CardGame implements Gamble {
         }
         return total;
     }
+
+    public void calculateWinner(){
+       int dealerTotal=15; //dealer.getValueOfCards;
+       while(dealerTotal < 16){
+           this.dealer.pullFromDeck();
+           dealerTotal=17; //dealer.getValueOfCards;
+       }
+        int largestNumber=0;
+        for (Player player : getPlayerList()) {
+            int number= convertToNumber(player);
+            if(number==21)
+                win(player);
+            else if(number<21 && number > largestNumber){
+                largestNumber=number;
+                
+            }
+
+        }
+    }
+
+    public boolean checkForAce(Player player){
+        for (Card card : player.checkCards()) {
+            if(card.getRank().returnRank()==1)
+                return true;
+        }
+        return false;
+    }
+
+    
 
 
 
