@@ -5,7 +5,7 @@ import com.codedifferently.casino.utilities.Deck;
 import com.codedifferently.casino.utilities.Player;
 
 public class CardGame extends Games {
-    private Deck deck;
+    protected Deck deck;
 
     public CardGame(String name,int max, int min){
         super(name, max, min);

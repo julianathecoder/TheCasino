@@ -8,8 +8,8 @@ import com.codedifferently.casino.utilities.Player;
 public class Games implements Game {
     private String gameName;
     private ArrayList<Player> players;
-    private int maxPlayers;
-    private int minPlayers;
+    protected int maxPlayers;
+    protected int minPlayers;
 
     public Games(String name,int max, int min){
         this.gameName=name;
