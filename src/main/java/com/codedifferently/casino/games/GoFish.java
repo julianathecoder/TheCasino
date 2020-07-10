@@ -47,7 +47,7 @@ public class GoFish extends CardGame{
     }
 
     public boolean ask(Player playerAsked, Rank rankWanted){
-        ArrayList<Card> hand = hmap.get(playerAsked);
+        ArrayList<Card> hand = playerAsked.checkCards();
 
         boolean cardFound = checkHand(hand, rankWanted);
 
@@ -64,6 +64,10 @@ public class GoFish extends CardGame{
         return false;
     }
 
+    public HashMap<Player, ArrayList<Card>> getHashMap(){
+        return hmap;
+    } 
+
     public void giveCards(Player playerAsking, Player playerAsked, Rank rankWanted){
         ArrayList<Card> removeCards = hmap.get(playerAsked);
         ArrayList<Card> addCards = hmap.get(playerAsking);
@@ -75,10 +79,6 @@ public class GoFish extends CardGame{
             }
         }
     }
-
-    public HashMap<Player, ArrayList<Card>> getHashMap(){
-        return hmap;
-    } 
 
     public boolean pullFromDeck(Player player, Rank rankWanted){
 
@@ -98,7 +98,7 @@ public class GoFish extends CardGame{
 
     public void createBookLog(){
         for(Player player : hmap.keySet()){
-            bookLog.put(player, null);
+            bookLog.put(player, new ArrayList<Rank>());
         }
     }
 

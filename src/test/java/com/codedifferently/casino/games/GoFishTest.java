@@ -103,9 +103,31 @@ public class GoFishTest {
 
     @Test
     public void giveCardsTest(){
-        
-        goFishTest.deal();
+
+        HashMap<Player, ArrayList<Card>> testMap = goFishTest.getHashMap();
+        ArrayList<Card> player1Hand = testMap.get(p1);
+        ArrayList<Card> player2Hand = testMap.get(p2);
+
+        player1Hand.add(p1, new Card(Suit.CLUBS, Color.BLACK, Rank.ACE));
+        testMap.add(new Card(Suit.HEARTS, Color.RED, Rank.FIVE));
+        testMap.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
+        testMap.add(new Card(Suit.SPADES, Color.BLACK, Rank.DEUCE));
+        testMap.add(new Card(Suit.DIAMONDS, Color.RED, Rank.ACE));
+
+        testMap.add(new Card(Suit.CLUBS, Color.BLACK, Rank.ACE));
+        testMap.add(new Card(Suit.HEARTS, Color.RED, Rank.FIVE));
+        testMap.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
+        testMap.add(new Card(Suit.SPADES, Color.BLACK, Rank.DEUCE));
+        testMap.add(new Card(Suit.DIAMONDS, Color.RED, Rank.ACE));
+
         goFishTest.giveCards(p1, p2, Rank.FIVE);
+
+        ArrayList<Card> player2 = testMap.get(p2);
+        boolean hasCards = goFishTest.checkHand(player2, Rank.FIVE);
+
+        if(hasCards){
+
+        }
     }
     
     @Test
