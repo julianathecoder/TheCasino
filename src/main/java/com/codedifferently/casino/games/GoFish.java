@@ -16,6 +16,8 @@ public class GoFish extends CardGame{
     private HashMap<Player, ArrayList<Card>> hmap = new HashMap<Player, ArrayList<Card>>();
     private ArrayList<Card> stockPile = new ArrayList<Card>();
     private final int cardsPerPerson;
+    private int totalBookCount = 0;
+    private HashMap<Player,ArrayList<Rank>> bookLog = new HashMap<Player, ArrayList<Rank>>();
 
     public GoFish(){
         super("Go Fish", 6, 2);
@@ -56,18 +58,37 @@ public class GoFish extends CardGame{
         }
     }
 
-    public Card pullFromDeck(Player player, Rank rankWanted){
+    public boolean pullFromDeck(Player player, Rank rankWanted){
 
         ArrayList<Card> hand = hmap.get(player);
         Card newCard = pullFromDeck();
 
         for(Card c : hand){
-            if(c.getRank().equals(newCard.getRank()))
+            if(c.getRank().equals(newCard.getRank())){
                 hand.add(newCard);
+                return true;
+            }                
             else
                 addToStockPile(newCard);
         }
-        return null;
+        return false;
+    }
+
+    public void createBookLog(){
+        for(Player player : hmap.keySet()){
+            bookLog.put(player, null);
+        }
+    }
+
+    public void addBook(Player player, Rank rank){
+        for(ArrayList<Rank> r : bookLog.values()){
+            for(Rank currentRank : r){
+                if(!(currentRank.equals(rank))){
+                    ArrayList<Rank> ranks = bookLog.get(player);
+                    ranks.add(rank);
+                }
+            }
+        }
     }
 
     public boolean checkForBooks(Player player){
@@ -85,6 +106,9 @@ public class GoFish extends CardGame{
                 for(int i = 0; i < 4; i++)
                     hand.remove(one);
                 
+                totalBookCount ++;
+                Rank rankToAdd = one.getRank();
+                addBook(player, rankToAdd);
                 return true;
             }
         }
@@ -100,11 +124,30 @@ public class GoFish extends CardGame{
 
         if(gotCards)
             giveCards(playerAsking, playerAsked, rankWanted);
-        else
+        else{
             pullFromDeck(playerAsking, rankWanted);
+        
+        checkForBooks(playerAsking);
+        }
     }
 
     public void deal(){
         dealCards(cardsPerPerson);
+    }
+
+    public String showBooks(Player player){
+        ArrayList<Rank> out = bookLog.get(player);
+
+        String output = String.format("Number of Books: %d \tBooks: %s", out.size(), out.toString());
+
+        return output;
+    }
+
+    public String showHand(Player player){
+        ArrayList<Card> hand = hmap.get(player);
+
+        String output = String.format("Player %s's Hand: %s", player.getName(), hand.toString());
+
+        return output;
     }
 }
