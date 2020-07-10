@@ -7,21 +7,12 @@ import java.util.ArrayList;
  */
 public class Dealer {
 
-     //Keeps track of the number of cards that have been dealt from deck so far
-    private int cardsUsed;
-    private ArrayList<Card> cards = new ArrayList<Card>();
-
-    public Card pullFromDeck(){
-
-        Card removedCard = cards.remove(cards.size() - 1);
-        return removedCard;
-    }
+    private Deck deck = new Deck();
 
     public void dealCard(Player player){
         //Get next card and add to hand of the player
-         Card removedCard = cards.remove(cards.size() - 1);
+         Card removedCard = deck.pullFromDeck();
          player.checkCards().add(removedCard);
-
      }
 }
 

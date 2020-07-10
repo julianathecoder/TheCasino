@@ -15,14 +15,10 @@ public class DiceTest {
 
     @Test
     public void rollTest(){
-        
-        int actual = 0; //???
+        Dice dice = new dice();
+        //When 
 
-        if(actual >= 1 && actual <= 6){
-            assert(true);
-        } else {
-            assert(false);
-        }
+        int expected = die
     }
 
     @Test
