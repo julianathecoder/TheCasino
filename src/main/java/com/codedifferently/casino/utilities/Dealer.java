@@ -12,7 +12,7 @@ public class Dealer {
     public void dealCard(Player player){
         //Get next card and add to hand of the player
          Card removedCard = deck.pullFromDeck();
-         player.checkCards().add(removedCard);
+         player.giveCard(removedCard);
      }
 }
 
