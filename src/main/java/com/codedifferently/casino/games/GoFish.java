@@ -23,10 +23,14 @@ public class GoFish extends CardGame{
         super("Go Fish", 6, 2);
         if(hmap.size() >= 2 && hmap.size() <= 3)
             cardsPerPerson = 7;
-        else   
+        else
+        //else if(hmap.size() > 3 && hmap.size() <= 6)
             cardsPerPerson = 5;
     }
 
+    public int getCardsPerPerson(){
+        return cardsPerPerson;
+    }
 
     public boolean ask(Player playerAsked, Rank rankWanted){
         ArrayList<Card> hand = hmap.get(playerAsked);
@@ -146,8 +150,19 @@ public class GoFish extends CardGame{
     public String showHand(Player player){
         ArrayList<Card> hand = hmap.get(player);
 
-        String output = String.format("Player %s's Hand: %s", player.getName(), hand.toString());
+        String output = String.format("%s's Hand: %s", player.getName(), hand.toString());
 
         return output;
+    }
+
+    public static void main(String[] args) {
+        GoFish goFishTest = new GoFish();
+        Player p1 = new Player("Eli", 15, 0);
+        Player p2 = new Player("Azlia", 18, 0);
+
+        goFishTest.addPlayer(p1);
+        goFishTest.addPlayer(p2);
+
+        System.out.println(goFishTest.showHand(p1));
     }
 }
