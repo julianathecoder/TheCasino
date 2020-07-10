@@ -7,7 +7,7 @@ import com.codedifferently.casino.utilities.Player;
 
 public class Games implements Game {
     private String gameName;
-    private ArrayList<Player> players;
+    protected ArrayList<Player> players;
     protected int maxPlayers;
     protected int minPlayers;
 
@@ -51,10 +51,5 @@ public class Games implements Game {
             return true;
         }
         return false;
-
     }
-
-
-
-    
 }

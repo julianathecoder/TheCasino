@@ -13,18 +13,33 @@ import com.codedifferently.casino.utilities.cardenums.Rank;
 
 public class GoFish extends CardGame{
     
-    private HashMap<Player, ArrayList<Card>> hmap = new HashMap<Player, ArrayList<Card>>();
+    private HashMap<Player, ArrayList<Card>> hmap;
     private ArrayList<Card> stockPile = new ArrayList<Card>();
-    private final int cardsPerPerson;
+    private int cardsPerPerson;
     private int totalBookCount = 0;
     private HashMap<Player,ArrayList<Rank>> bookLog = new HashMap<Player, ArrayList<Rank>>();
+ 
 
     public GoFish(){
+
         super("Go Fish", 6, 2);
-        if(hmap.size() >= 2 && hmap.size() <= 3)
+        this.hmap = new HashMap<Player, ArrayList<Card>>();
+        
+    }
+
+    public void setCardNumber(){
+        if(hmap.size() == 2 || hmap.size() == 3)
             cardsPerPerson = 7;
-        else
+        else if(hmap.size() > 3 && hmap.size() <= 6)
             cardsPerPerson = 5;
+        else
+            cardsPerPerson = 0;
+    }
+
+    public void initializePlayers(){
+        for(Player player :  players){
+            hmap.put(player, new ArrayList<Card>());
+        }
     }
 
     public int getCardsPerPerson(){
@@ -162,6 +177,15 @@ public class GoFish extends CardGame{
         goFishTest.addPlayer(p1);
         goFishTest.addPlayer(p2);
 
-        System.out.println(goFishTest.hmap.size());
+        goFishTest.initializePlayers();
+        goFishTest.setCardNumber();
+
+        ArrayList<Player> p = goFishTest.getPlayerList();
+
+        for(Player pl : p){
+            System.out.println(pl.getName());
+        }
+
+        System.out.println(goFishTest.getCardsPerPerson());
     }
 }
