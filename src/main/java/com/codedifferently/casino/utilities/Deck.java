@@ -13,10 +13,11 @@ import com.codedifferently.casino.utilities.cardenums.Suit;
 
 public class Deck {
 
-    private ArrayList<Card> cards = new ArrayList<Card>();
+    private ArrayList<Card> cards; 
 
     public Deck(){
         Color color = null;
+        cards = new ArrayList<Card>();
         
         for(Suit suit : Suit.values()){
 
@@ -37,9 +38,21 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
+    public void repopulateDeck(ArrayList<Card> pile){
+
+        for(Card card : pile)
+            cards.add(card);
+
+        shuffle();
+    }
+
     public int getDeckSize(){
         return cards.size();
     } 
+
+    public ArrayList<Card> getDeck(){
+        return cards;
+    }
 
     public Card pullFromDeck(){
 

@@ -1,5 +1,8 @@
 package com.codedifferently.casino.utilities;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import com.codedifferently.casino.utilities.cardenums.Color;
 import com.codedifferently.casino.utilities.cardenums.Rank;
 import com.codedifferently.casino.utilities.cardenums.Suit;
@@ -63,5 +66,24 @@ public class DeckTest {
         Card expected = deckTest.pullFromDeck();
 
         Assert.assertNotEquals(expected, actual);
+    }
+
+    @Test
+    public void repopulateDeckTest(){
+        Deck deckTest = new Deck();
+        deckTest.getDeck().clear();
+
+        Card one = new Card(Suit.CLUBS, Color.BLACK, Rank.ACE);
+        Card two = new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN);
+        Card three = new Card(Suit.SPADES, Color.BLACK, Rank.DEUCE);
+        Card four = new Card(Suit.HEARTS, Color.RED, Rank.FIVE);
+
+        ArrayList<Card> testStockPile = new ArrayList<Card>(Arrays.asList(one, two, three, four));
+        deckTest.repopulateDeck(testStockPile);
+
+        int actual = deckTest.getDeckSize();
+        int expected = 4;
+
+        Assert.assertEquals(expected, actual);
     }
 }

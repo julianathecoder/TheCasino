@@ -100,15 +100,6 @@ public class GoFish extends CardGame{
         return false;
     }
 
-
-    /*public void createBookLog(){
-        bookLog = new HashMap<Player, Integer>();
- 
-        for(Player player : getPlayerList()){
-            bookLog.put(player, 0);
-        }
-    }*/
-
     public HashMap<Player, ArrayList<Rank>> getBookLog(){
         return bookLog;
     }
@@ -121,31 +112,59 @@ public class GoFish extends CardGame{
     }
 
     public boolean checkForBooks(Player player){
-        int count = 0;
 
         ArrayList<Card> hand = hmap.get(player);
 
         for(Card one : hand){
+            int count = 0;
             for(Card two : hand){
                 if(one.getRank().equals(two.getRank()))
                     count++;
             }
 
-            if(count == 4){ 
-                for(int i = 0; i < 4; i++)
-                    hand.remove(one);
-                
-                totalBookCount ++;
-                Rank rankToAdd = one.getRank();
-                addToBookLog(player, rankToAdd);
-                return true;
-            }
+            if(count == 4)
+                return removeBooks(player, one, hand);
         }
         return false;
     }
 
+    public boolean removeBooks(Player player, Card card2, ArrayList<Card> arrList){
+            
+        ArrayList<Card> temp = new ArrayList<Card>();
+        
+        for(Card card : arrList)
+            if(card.getRank().equals(card2.getRank()))
+                temp.add(card);
+
+        for(Card card : temp)
+            arrList.remove(card);
+            
+        totalBookCount++;
+        Rank rankToAdd = card2.getRank();
+        addToBookLog(player, rankToAdd);
+
+        return true;  
+    }
+
+    public int getTotalBookCount(){
+        return totalBookCount;
+    }
+
+    public int getSizeOfPlayerHand(Player player){
+        return hmap.get(player).size();
+    }
+
     public void addToStockPile(Card card){
        stockPile.add(card);
+    }
+
+    public ArrayList<Card> getStockPile(){
+        return stockPile;
+    }
+
+    public void emptyStockPile(){
+        deck.repopulateDeck(stockPile);
+        stockPile.clear();
     }
 
     public void playerTurn(Player playerAsking, Player playerAsked, Rank rankWanted){
@@ -153,15 +172,18 @@ public class GoFish extends CardGame{
 
         if(gotCards)
             giveCards(playerAsking, playerAsked, rankWanted);
-        else{
+        else
             pullFromDeck(playerAsking, rankWanted);
         
         checkForBooks(playerAsking);
-        }
     }
 
     public void deal(){
         dealCards(cardsPerPerson);
+    }
+
+    public int getDeckSize(){
+        return deck.getDeckSize();
     }
 
     public String showBooks(Player player){
