@@ -11,7 +11,7 @@ public class DealerTest {
     @Test
     public void dealCardTest(){
         //Given 
-
+        
         //When
 
         //Then
