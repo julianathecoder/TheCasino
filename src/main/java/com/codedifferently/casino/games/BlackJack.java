@@ -53,12 +53,16 @@ public class BlackJack extends CardGame implements Gamble {
         for (Player player : this.bets.keySet()) {
             output+= "\t"+player.getName() +": "+bets.get(player)+"\n";
         }
-        this.bets.clear();
         return output;
     }
 
-    public void clearBets(){
+    public void resetGame(){
         this.bets.clear();
+        this.dealer=new Dealer();
+        this.notBustedPlayers.clear();
+        for (Player player : getPlayerList()) {
+            player.emptyHand();
+        }
     }
 
     public void addStandingPlayer(Player player){
@@ -73,15 +77,11 @@ public class BlackJack extends CardGame implements Gamble {
         double winnings=this.bets.get(player)*2;
         player.giveMoney(winnings);
         this.bets.replace(player, winnings);
-        player.emptyHand();
-
     }
 
     public void lose(Player player) {
         double lose=this.bets.get(player);
         this.bets.replace(player, -lose);
-        player.emptyHand();
-
     }
 
     public void doubleMove(Player player){
@@ -94,10 +94,16 @@ public class BlackJack extends CardGame implements Gamble {
     public void insurance(Player player){
 
     }
+
+    public boolean checkIfValid(Player player){
+        return player.getMoney()>=2 && player.getAge()>=21;
+    }
+    
     
     public void setUp(){
-        if(super.startGame()){
-            super.dealCards(2);
+        if(startGame()){
+            shuffleDeck();
+            dealCards(2);
         }
     }
 
@@ -135,21 +141,19 @@ public class BlackJack extends CardGame implements Gamble {
     }
 
     public void calculateWinner(){
-       int dealerTotal=14; //dealer.getValueOfCards;
-       while(dealerTotal < 16){
-           dealerTotal=17; //dealer.getValueOfCards;
-       }
-        int largestNumber=0;
-        for (Player player : getPlayerList()) {
-            int number= convertToNumber(player);
-            if(number==21)
-                win(player);
-            else if(number<21 && number > largestNumber){
-                largestNumber=number;
-                
-            }
+       for(Player player: this.notBustedPlayers){
+           if(checkForAce(player)){
+               int bestNum=0;
+               for (int value: convertWithAces(player)){
+                   if(value>bestNum)
+                    bestNum=value;
+               }
+               // Compare best num with dealer's total, decide win or lose
 
-        }
+           }
+           // Compare best num with dealer's total, decide win or lose
+
+       }
     }
 
     public boolean checkForAce(Player player){

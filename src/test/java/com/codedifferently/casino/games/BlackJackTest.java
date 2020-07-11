@@ -191,7 +191,7 @@ public class BlackJackTest {
     }
 
     @Test
-    public void clearTest(){
+    public void resetTest(){
         // Given
         int size=0;
 
@@ -202,7 +202,7 @@ public class BlackJackTest {
         game.bet(new Player("Rill", 21, 2334.00),100.00);
         game.bet(new Player("Lill", 21, 2334.00),100.00);
         game.bet(new Player("Aill", 21, 2334.00),100.00);
-        game.clearBets();
+        game.resetGame();
         int actual=game.getBetCount();
 
         // Then
@@ -425,5 +425,47 @@ public class BlackJackTest {
         // Then
         Assert.assertEquals(expected, converted);
         Assert.assertEquals(expected2, converted2);
+    }
+
+    @Test
+    public void checkIfValidTest(){
+        // Given
+        Player bill=new Player("Bill", 21, 2334.00);
+        boolean expected=true;
+
+        // When
+        BlackJack game=new BlackJack();
+        boolean actual=game.checkIfValid(bill);
+
+        // Then
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void checkIfValidTest2(){
+        // Given
+        Player bill=new Player("Bill", 21, 0);
+        boolean expected=false;
+
+        // When
+        BlackJack game=new BlackJack();
+        boolean actual=game.checkIfValid(bill);
+
+        // Then
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void checkIfValidTest3(){
+        // Given
+        Player bill=new Player("Bill", 20, 2334.00);
+        boolean expected=false;
+
+        // When
+        BlackJack game=new BlackJack();
+        boolean actual=game.checkIfValid(bill);
+
+        // Then
+        Assert.assertEquals(expected,actual);
     }
 }

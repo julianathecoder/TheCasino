@@ -7,6 +7,7 @@ import java.util.Scanner;
 import com.codedifferently.casino.games.BlackJack;
 import com.codedifferently.casino.utilities.Card;
 import com.codedifferently.casino.utilities.Player;
+import com.codedifferently.casino.utilities.Rules;
 
 public class Casino {
     public static void main(String[] args){
@@ -14,21 +15,23 @@ public class Casino {
         boolean gamePlaying=false;
         Scanner scan=new Scanner(System.in);
         BlackJack blackjack = new BlackJack();
-        Player bob=new Player("Bob",21,2030.00);
+        Player bob=new Player("Bob",20,2030.00);
         Player bill=new Player("Bill",25,3400.00);
-        Player jill=new Player("Jill",24,8000.00);
-        Player lil=new Player("Lil",22,1000.00);
+        Player jill=new Player("Jill",20,8000.00);
+        Player lil=new Player("Lil",19,1000.00);
         Player john=new Player("John",21,900.00);
         Queue<Player> queue=new LinkedList<Player>();
         queue.add(bob);
-        queue.add(bill);
         queue.add(jill);
+        queue.add(bill);
         queue.add(lil);
+        queue.add(john);
 
         while(!queue.isEmpty()){
             Player currentPlayer=queue.poll();
-            if(blackjack.addPlayer(currentPlayer)){
-                System.out.printf("%s has joined the game %s\n",currentPlayer.getName(),blackjack.getGameName());
+            if(blackjack.checkIfValid(currentPlayer)){
+                if(blackjack.addPlayer(currentPlayer))
+                    System.out.printf("%s has joined the game %s\n",currentPlayer.getName(),blackjack.getGameName());
             }
             else{
                 System.out.printf("%s could not join the game %s\n",currentPlayer.getName(),blackjack.getGameName());
@@ -37,9 +40,12 @@ public class Casino {
         System.out.printf("What would you like to play? \n (Go Fish) (Black Jack) (Craps) (Roulette)(Seven Free slots)\n");
         String gameChoice=scan.nextLine();
         if(gameChoice.equalsIgnoreCase("Black Jack")){
+            System.out.printf("Do you want to read the rules of Black Jack? Yes/No \n");
+            gameChoice=scan.nextLine();
+            if(gameChoice.equalsIgnoreCase("yes"))
+                System.out.println("\n"+Rules.blackJackRules()+"\n");
             if(blackjack.startGame()){
                 gamePlaying=true;
-                blackjack.shuffleDeck();
                 blackjack.setUp();
                 while(gamePlaying){
                         System.out.println("SIZE OF PLAYING: "+blackjack.getPlayerList().size());
@@ -70,6 +76,7 @@ public class Casino {
                                     blackjack.hit(currentPlayer);
                                 else if(choice.equalsIgnoreCase("Double")){
                                     blackjack.doubleMove(currentPlayer); 
+                                    checkHand(currentPlayer,blackjack);
                                     done=true;
                                 }
                                 // Checks if player busted
@@ -94,7 +101,14 @@ public class Casino {
                         }
                         blackjack.calculateWinner();
                         System.out.println(blackjack.outcomeLog());
-                        gamePlaying=false;
+                        System.out.printf("Do you want to play again?: Yes/No\n");
+                        gameChoice=scan.next();
+                        if(gameChoice.equalsIgnoreCase("yes")){
+                            blackjack.resetGame();
+                            blackjack.setUp();
+                        }
+                        else
+                            gamePlaying=false;
                     }
                     scan.close();
                 }
