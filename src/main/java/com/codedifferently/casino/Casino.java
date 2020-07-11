@@ -59,7 +59,7 @@ public class Casino {
 
                             // Checks for Ace
                             if(blackjack.checkForAce(player))
-                                System.out.println(blackjack.convertWithAces(player));
+                                System.out.printf("Possible outcomes with aces: %s\n", blackjack.convertWithAces(player).toString());
 
                             // Asking player until stand or bust
                             System.out.printf("%s, What would you like to do? \n (Hit) (Stand) (Double)\n",currentPlayer.getName());
@@ -92,6 +92,7 @@ public class Casino {
                             if(!blackjack.checkIfBusted(currentPlayer))
                                 blackjack.addStandingPlayer(currentPlayer);
                         }
+                        blackjack.calculateWinner();
                         System.out.println(blackjack.outcomeLog());
                         gamePlaying=false;
                     }

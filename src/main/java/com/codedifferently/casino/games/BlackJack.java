@@ -26,6 +26,14 @@ public class BlackJack extends CardGame implements Gamble {
     public int getBetCount(){
         return this.bets.size();
     }
+    
+    public Dealer getDealer(){
+        return this.dealer;
+    }
+
+    public ArrayList<Player> getNotBustedPlayers() {
+        return this.notBustedPlayers;
+    }
 
     public void bet(Player player,double money) {
         money=player.gamble(money);
@@ -105,7 +113,7 @@ public class BlackJack extends CardGame implements Gamble {
         return total;
     }
 
-    public String convertWithAces(Player player){
+    public ArrayList<Integer> convertWithAces(Player player){
         ArrayList<Integer> results=new ArrayList<Integer>();
         int total=0;
         int acesFound=0;
@@ -117,16 +125,12 @@ public class BlackJack extends CardGame implements Gamble {
         }
         results.add(total);
 
-        if(acesFound>1){
-            total+=1*acesFound;
-            if(total<=21)
-                results.add(total);
+        if(acesFound>=1){
+            if(total+10 <= 21)
+                results.add(total+10);
         }
-        else
-            if(total+11<=21)
-                results.add(total+11);
-
-        return String.format("Possible outcomes with aces: %s", results.toString());
+        
+        return results;
 
     }
 
