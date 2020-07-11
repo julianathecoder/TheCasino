@@ -1,6 +1,4 @@
 package com.codedifferently.casino.utilities;
-
-
 /**
  * @author Taia WilliamsRivera
  */
@@ -39,19 +37,10 @@ public class Rules {
 
 
     public static String crapsRules() {
-        return "1. Each round in craps starts with what is known as the come-out roll. It is required that the\n"
-                + "shooter place a bet before making this roll on either the pass line or the don’t pass line.\n"
-                + "2. If the combined value of the two dice on a come-out roll equals 2, 3, or 12, then this is \"CRAPPING OUT\"n"
-                + "and the round is over. Players will lose pass line bets and win don’t pass bets. If the come-out roll is\n"
-                + "7 or 11, the round is also over.\n"
-                + "3. If any other value is rolled on the come-out roll i.e. 4, 5, 6, 8, 9 or 10,\n"
-                + "then a point is established, equal to the value rolled, and the round continues into the next stage.\n"
-                + "4. The shooter continues to roll with players betting on the outcome of each, until they roll either a 7 or the point\n"
-                + "value that has been established.\n"
-                + "5.Following a roll of either 7 or the point value, the round is\n"
-                + "over and a new come-out roll is required. It’s standard practice for the shooter to pass the dice to\n"
-                + "another player if a round ends with a 7, and to stay as shooter if the round ends with the point value\n"
-                + "being rolled.";
+        return "1. Player makes a bet. 2. Player rolls two dice to get the first sum, if the first sum is 7 or 11, player automatically\n"
+        + "wins and gets two times the bet. If the first sum is 2, 3, or 12, player loses. Any other number, the first sum becomes the point.\n"
+        + "3. Player rolls again to get the new sum. If the new sum equals point, player wins. Otherwise if the new sum equals 7, shooter looses. If new sum is less than point player rolls again\n"
+        + "until the point is matched,sum is 7 or sum is greater than the point.";
     }
 
     public static String sevenFreeSlotsRules() 

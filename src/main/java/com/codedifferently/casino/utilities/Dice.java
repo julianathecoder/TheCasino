@@ -4,35 +4,35 @@ package com.codedifferently.casino.utilities;
  */
 public class Dice {
     
-    private int die1;
-    private int die2;
+    private static int die1;
+    private static int die2;
 
     /**
      * Constructor. Rolls the dice, so they initially show some random values.
      */
-    
-    public Dice(){ 
+
+    public Dice() {
         roll();
     }
-    
-    public int roll(){
 
-        die1 = (int)(Math.random()*6) + 1; // 1-6 inclusive
-        die2 = (int)(Math.random()*6) + 1;
+    public int roll() {
+
+        die1 = (int) (Math.random() * 6) + 1; // 1-6 inclusive
+        die2 = (int) (Math.random() * 6) + 1;
         return die1 + die1;
     }
 
-    public int getDie1(){
-        
+    public int getDie1() {
+
         return die1;
     }
 
-    public int getDie2(){
-        
+    public int getDie2() {
+
         return die2;
     }
 
-    public int getRollTotal(){
+    public static int getRollTotal() {
 
         return die1 + die2;
     }
