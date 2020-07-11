@@ -5,7 +5,9 @@ import java.util.ArrayList;
 
 import com.codedifferently.casino.utilities.Card;
 import com.codedifferently.casino.utilities.Player;
+import com.codedifferently.casino.utilities.cardenums.Color;
 import com.codedifferently.casino.utilities.cardenums.Rank;
+import com.codedifferently.casino.utilities.cardenums.Suit;
 
 /**
  * @author Keseana Howard
@@ -17,8 +19,7 @@ public class GoFish extends CardGame{
     private ArrayList<Card> stockPile = new ArrayList<Card>();
     private int cardsPerPerson;
     private int totalBookCount = 0;
-    private HashMap<Player,ArrayList<Rank>> bookLog = new HashMap<Player, ArrayList<Rank>>();
- 
+    private HashMap<Player, ArrayList<Rank>> bookLog = new HashMap<Player, ArrayList<Rank>>();
 
     public GoFish(){
 
@@ -90,32 +91,33 @@ public class GoFish extends CardGame{
         ArrayList<Card> hand = hmap.get(player);
         Card newCard = pullFromDeck();
 
-        for(Card c : hand){
-            if(c.getRank().equals(newCard.getRank())){
-                hand.add(newCard);
-                return true;
-            }                
-            else
-                addToStockPile(newCard);
+        if(checkHand(hand, rankWanted)){
+            hand.add(newCard);
+            return true;
         }
+
+        addToStockPile(newCard);
         return false;
     }
 
-    public void createBookLog(){
-        for(Player player : hmap.keySet()){
-            bookLog.put(player, new ArrayList<Rank>());
+
+    /*public void createBookLog(){
+        bookLog = new HashMap<Player, Integer>();
+ 
+        for(Player player : getPlayerList()){
+            bookLog.put(player, 0);
         }
+    }*/
+
+    public HashMap<Player, ArrayList<Rank>> getBookLog(){
+        return bookLog;
     }
 
-    public void addBook(Player player, Rank rank){
-        for(ArrayList<Rank> r : bookLog.values()){
-            for(Rank currentRank : r){
-                if(!(currentRank.equals(rank))){
-                    ArrayList<Rank> ranks = bookLog.get(player);
-                    ranks.add(rank);
-                }
-            }
-        }
+    public void addToBookLog(Player player, Rank rankWon){
+        ArrayList<Rank> ranks = new ArrayList<Rank>();
+        ranks.add(rankWon);
+
+        bookLog.put(player, ranks);
     }
 
     public boolean checkForBooks(Player player){
@@ -135,7 +137,7 @@ public class GoFish extends CardGame{
                 
                 totalBookCount ++;
                 Rank rankToAdd = one.getRank();
-                addBook(player, rankToAdd);
+                addToBookLog(player, rankToAdd);
                 return true;
             }
         }
@@ -189,12 +191,29 @@ public class GoFish extends CardGame{
         goFishTest.initializePlayers();
         goFishTest.setCardNumber();
 
-        ArrayList<Player> p = goFishTest.getPlayerList();
+        ArrayList<Card> p1Hand = goFishTest.getHashMap().get(p1);
+        ArrayList<Card> p2Hand = goFishTest.getHashMap().get(p2);
 
-        for(Player pl : p){
-            System.out.println(pl.getName());
+        p1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.ACE));
+        p1Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.KING));
+        p1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
+        p1Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.KING));
+        p1Hand.add(new Card(Suit.DIAMONDS, Color.RED, Rank.ACE));
+
+        p2Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.ACE));
+        p2Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
+        p2Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.THREE));
+        p2Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.KING));
+        p2Hand.add(new Card(Suit.SPADES, Color.RED, Rank.KING));
+
+        goFishTest.giveCards(p1, p2, Rank.KING);
+        goFishTest.addToBookLog(p1, Rank.KING);
+
+        HashMap<Player, ArrayList<Rank>> temp = goFishTest.getBookLog();
+        for(Player p : temp.keySet()){
+            System.out.println(p.getName());
+            System.out.println(temp.get(p));
+            System.out.println(temp.get(p).size());
         }
-
-        System.out.println(goFishTest.getCardsPerPerson());
     }
 }

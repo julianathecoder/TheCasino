@@ -3,6 +3,7 @@ package com.codedifferently.casino.games;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Set;
 
 import com.codedifferently.casino.utilities.Card;
 import com.codedifferently.casino.utilities.Player;
@@ -105,25 +106,25 @@ public class GoFishTest {
     public void giveCardsTest(){
 
         HashMap<Player, ArrayList<Card>> testMap = goFishTest.getHashMap();
-        ArrayList<Card> player1Hand = testMap.get(p1);
-        ArrayList<Card> player2Hand = testMap.get(p2);
+        ArrayList<Card> p1Hand = testMap.get(p1);
+        ArrayList<Card> p2Hand = testMap.get(p2);
 
-        player1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.ACE));
-        player1Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.FIVE));
-        player1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.KING));
-        player1Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.DEUCE));
-        player1Hand.add(new Card(Suit.DIAMONDS, Color.RED, Rank.ACE));
+        p1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.ACE));
+        p1Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.FIVE));
+        p1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
+        p1Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.DEUCE));
+        p1Hand.add(new Card(Suit.DIAMONDS, Color.RED, Rank.ACE));
 
-        player2Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.ACE));
-        player2Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
-        player2Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.THREE));
-        player2Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.KING));
-        player2Hand.add(new Card(Suit.SPADES, Color.RED, Rank.KING));
+        p2Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.ACE));
+        p2Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
+        p2Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.THREE));
+        p2Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.KING));
+        p2Hand.add(new Card(Suit.SPADES, Color.RED, Rank.KING));
 
         goFishTest.giveCards(p1, p2, Rank.KING);
 
-        int player1Actual = player1Hand.size();
-        int player2Actual = player2Hand.size();
+        int player1Actual = p1Hand.size();
+        int player2Actual = p2Hand.size();
 
         int player1Expected = 7;
         int player2Expected = 3;
@@ -137,22 +138,83 @@ public class GoFishTest {
     public void pullFromDeckTest(){
 
         HashMap<Player, ArrayList<Card>> testMap = goFishTest.getHashMap();
-        ArrayList<Card> player1Hand = testMap.get(p1);
+        ArrayList<Card> p1Hand = testMap.get(p1);
 
-        player1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.ACE));
-        player1Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.FIVE));
-        player1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
-        player1Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.DEUCE));
-        player1Hand.add(new Card(Suit.DIAMONDS, Color.RED, Rank.ACE));
+        p1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.ACE));
+        p1Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.FIVE));
+        p1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
+        p1Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.DEUCE));
+        p1Hand.add(new Card(Suit.DIAMONDS, Color.RED, Rank.ACE));
 
         boolean actual = goFishTest.pullFromDeck(p1, Rank.QUEEN);
         boolean expected = true;
 
         Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void pullFromDeckTest2(){
+
+        HashMap<Player, ArrayList<Card>> testMap = goFishTest.getHashMap();
+        ArrayList<Card> p1Hand = testMap.get(p1);
+
+        p1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.ACE));
+        p1Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.FIVE));
+        p1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
+        p1Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.DEUCE));
+        p1Hand.add(new Card(Suit.DIAMONDS, Color.RED, Rank.ACE));
+
+        boolean actual = goFishTest.pullFromDeck(p1, Rank.SEVEN);
+        boolean expected = false;
+
+        Assert.assertEquals(expected, actual);
+    }
+
+   /* @Test
+    public void createBookLogTest(){
+        HashMap<Player, ArrayList<Card>> testMap = goFishTest.getHashMap();
+        HashMap<Player, ArrayList<Rank>> testBookLog = goFishTest.getBookLog();
+
+        ArrayList<Player> actual = 
+        
+        //Assert.assertEquals(expected, actual);
+    }*/
+
+    @Test
+    public void addBookTest(){
+        HashMap<Player, ArrayList<Card>> testMap = goFishTest.getHashMap();
+        ArrayList<Card> p1Hand = testMap.get(p1);
+        ArrayList<Card> p2Hand = testMap.get(p2);
+
+        p1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.ACE));
+        p1Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.KING));
+        p1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
+        p1Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.KING));
+        p1Hand.add(new Card(Suit.DIAMONDS, Color.RED, Rank.ACE));
+
+        p2Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.ACE));
+        p2Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
+        p2Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.THREE));
+        p2Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.KING));
+        p2Hand.add(new Card(Suit.SPADES, Color.RED, Rank.KING));
+
+        goFishTest.giveCards(p1, p2, Rank.KING);
+        goFishTest.addToBookLog(p1,Rank.KING);
+
+        HashMap<Player, ArrayList<Rank>> testBookLog = goFishTest.getBookLog();
+
+        int actual = testBookLog.get(p1).size();
+        int expected = 1;
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void checkForBooksTest(){
 
     }
     
-    @Test
+    @Test 
     public void showHandTest(){
 
         String actual1 = goFishTest.showHand(p1);
