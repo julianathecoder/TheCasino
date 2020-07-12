@@ -6,17 +6,89 @@ package com.codedifferently.casino.utilities;
 public class Dealer {
 
     private Deck deck = new Deck();
+    private ArrayList<Card> hand;
+
+    public Dealer(){
+        this.hand = new Arraylist<Card>();
+    }
+
+    public ArrayList<Card> checkCards(){
+        return this.hand;
+    }
+
+    public int getHandSize(){
+        return this.hand.size();
+    }
+
+    public boolean checkForAce(){
+        for (Card card : checkCards()) {
+            if(card.getRank().returnRank()==1)
+                return true;
+        }
+        return false;
+    }
 
     public void dealCard(Player player){
-        //Get next card and add to hand of the player
          Card removedCard = deck.pullFromDeck();
          player.giveCard(removedCard);
      }
-     
-     public void dealersHand(Player player){
 
-        //TODO hand that can be compared to players
+     public int convertToNumber(){
+        int total=0;
+        for (Card card : checkCards()) {
+            total+=card.getRank().returnRank();
+        }
+        return total;
+    }
+
+    public ArrayList<Integer> convertWithAces(){
+        ArrayList<Integer> results=new ArrayList<Integer>();
+        int total=0;
+        int acesFound=0;
+
+        for (Card card : checkCards()) {
+            total+=card.getRank().returnRank();
+            if(card.getRank().returnRank()==1)
+                acesFound++;
+        }
+        results.add(total);
+
+        if(acesFound>=1){
+            if(total+10 <= 21)
+                results.add(total+10);
+        }
         
-     }
-}
+        return results;
+
+    }
+
+    public boolean compareToDealer(int PlayerNum){
+        int dealersNum = 0;
+        if(checkForAce(this.hand)){
+            convertWithAces(this.hand);
+            for (int value: convertWithAces(player)){
+                if(value>dealersNum) {
+                    dealersNum=value;
+                }
+        }
+    }
+        else dealersNum = convertToNumber();
+        
+
+        if(PlayerNum >= dealersNum){
+            return true;
+        } 
+        if(PlayerNum == 21){
+            return true;
+        } 
+        else {
+            return false;
+        }
+
+    }
+    
+
+    }
+
+
 

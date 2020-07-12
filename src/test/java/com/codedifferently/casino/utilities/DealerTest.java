@@ -2,6 +2,8 @@ package com.codedifferently.casino.utilities;
 
 import org.junit.Test;
 
+import jdk.internal.jline.internal.TestAccessible;
+
 /**
  * @author Juliana Paul
  */
@@ -9,13 +11,23 @@ import org.junit.Test;
 public class DealerTest {
 
     @Test
-    public void dealCardTest(){
+    public void getHandSizeTest(){
         //Given 
         
         //When
 
         //Then
+    }
 
+    @Test
+    public void dealCardTest(){
+
+
+    }
+
+    @Test
+    public void dealersHandTest(){
+        
     }
     
 }

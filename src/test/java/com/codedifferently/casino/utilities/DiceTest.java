@@ -16,7 +16,7 @@ public class DiceTest {
         int expectedRoll = roll.roll();
 
         //When
-        int actualRoll = roll.getRollTotal();
+        int actualRoll = Dice.getRollTotal();
 
         //Then
         Assert.assertEquals(expectedRoll, actualRoll);
@@ -29,10 +29,47 @@ public class DiceTest {
         int expectedRoll = rollTest.getDie1() + rollTest.getDie2();
 
         //When
-        int actualRoll = rollTest.getRollTotal();
+        int actualRoll = Dice.getRollTotal();
 
         //Then
         Assert.assertEquals(expectedRoll, actualRoll);
+    }
 
+    @Test
+    public void getDie1Test(){
+        //Given 
+        Dice rollTest = new Dice();
+        int expectedRoll = rollTest.getDie1();
+
+        //When
+        int actualRoll = rollTest.getDie1();
+
+        //Then
+        Assert.assertEquals(expectedRoll, actualRoll);
+    }
+
+    @Test
+    public void getDie2Test(){
+        //Given 
+        Dice rollTest = new Dice();
+        int expectedRoll = rollTest.getDie2();
+
+        //When
+        int actualRoll = rollTest.getDie2();
+
+        //Then
+        Assert.assertEquals(expectedRoll, actualRoll);
+    }
+
+    @Test
+    public getRollTotalTest(){
+        //Given 
+        int expectedRoll = Dice.getRollTotal();
+
+        //When
+        int actualRoll = Dice.getRollTotal();
+
+        //Then
+        Assert.assertEquals(expectedRoll, actualRoll);
     }
 }
