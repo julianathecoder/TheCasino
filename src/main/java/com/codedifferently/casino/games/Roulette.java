@@ -52,8 +52,8 @@ public class Roulette implements Gamble {
         this.bets.replace(player, -lose);
     }
 
-    //
-    public static void main(String[] args) {
+    
+    public static void mainRoulette() {
         Scanner input = new Scanner(System.in);
         System.out.println("Welcome to the Roulette Game...");
         System.out.println("Have you played before? Y/N.");
@@ -408,14 +408,8 @@ public class Roulette implements Gamble {
         System.out.println("What would you like to bet on?");
     }
 
-	public static boolean playRoulette() {
-		return false;
-	}
-
-	public Player getPlayer() {
-		return null;
-	}
 }
+
 
 
 

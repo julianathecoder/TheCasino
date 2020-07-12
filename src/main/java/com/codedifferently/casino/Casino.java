@@ -2,7 +2,6 @@ package com.codedifferently.casino;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Random;
 import java.util.Scanner;
 
 import com.codedifferently.casino.games.BlackJack;
@@ -142,9 +141,9 @@ public class Casino {
         } 
         
         else if (gameChoice.equalsIgnoreCase("Roulette")){
-            Roulette roulette = new Roulette();
             Player player = new Player("Kevin", 21, 1000);
-            Scanner input = new Scanner(System.in);
+            Roulette.mainRoulette();
+            /**Scanner input = new Scanner(System.in);
             System.out.println("Welcome to the Roulette Game...");
             System.out.println("Have you played before? Y/N.");
             String vCheck1 = input.nextLine();
@@ -169,26 +168,8 @@ public class Casino {
                     Thread.currentThread().interrupt();
                 }
 
-        String confirmationCashout = "";
-        String confirmationRestart = "";
-        String bet = "";
-        String answer = "";
-        int winStreak = 0;
-        int gamble = 0;
-        int payout = 0;
-        int randomNum = 0;
-        int money = 1000;
-        int rounds = 1;
-        Random rand = new Random();
-    
+            }
+*/
         }
-    }
-
-        
-
-
-        
-
-
     }
 }
