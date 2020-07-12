@@ -109,7 +109,6 @@ public class SevenFreeSlots implements Gamble {
                 Thread.currentThread().interrupt();
             }
         }
-        System.out.println(sevenFreeSlots.getRandomElement(slots));
 
 }
 }

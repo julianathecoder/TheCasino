@@ -114,6 +114,22 @@ public class Casino {
                 }
             else
                 System.out.println("Not enough players to start, add more players.");
+        } else {
+            SevenFreeSlots sevenFreeSlots = new SevenFreeSlots();
+            Player player = new Player("jon", 19, 9);
+            sevenFreeSlots.spinReels(player);
+    
+            System.out.println("Welcome to 7 Free Slots !");
+            System.out.printf("Push a button. \n (Bet One) (Bet Max) (SPIN REELS)\n");
+            String buttonSelected = scan.nextLine();
+            if (buttonSelected.equalsIgnoreCase("Bet One")) {
+                System.out.println("SPINNING!\n");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+            }
         }
 
         

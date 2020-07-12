@@ -1,5 +1,7 @@
 package com.codedifferently.casino.utilities;
 
+import java.utl.ArrayList;
+
 /**
  * @author Juliana Paul
  */
@@ -66,7 +68,7 @@ public class Dealer {
         int dealersNum = 0;
         if(checkForAce(this.hand)){
             convertWithAces(this.hand);
-            for (int value: convertWithAces(player)){
+            for (int value: convertWithAces()){
                 if(value>dealersNum) {
                     dealersNum=value;
                 }
@@ -86,7 +88,6 @@ public class Dealer {
         }
 
     }
-    
 
     }
 
