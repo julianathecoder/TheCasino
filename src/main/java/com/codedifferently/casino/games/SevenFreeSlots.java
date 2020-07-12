@@ -1,12 +1,10 @@
 package com.codedifferently.casino.games;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
-
 import com.codedifferently.casino.intereface.Gamble;
 import com.codedifferently.casino.utilities.Player;
 
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class SevenFreeSlots implements Gamble {
 
@@ -16,19 +14,34 @@ public class SevenFreeSlots implements Gamble {
     private String slot3;
 
 
-    final static ArrayList<String> slots = new ArrayList<String>(50);
+    final static ArrayList<String> slots = new ArrayList<String>(20);
 
     public SevenFreeSlots(){
 
         numberPresses = 0;
 
+        slots.add("BAR");
+        slots.add("BAR"); 
+        slots.add("BAR");
+        slots.add("WILD");
+        slots.add("WILD");
+        slots.add("WILD");
+        slots.add("WILD");
+        slots.add("WILD");
+        slots.add("7RED");
+        slots.add("7RED");
         slots.add("7RED");
         slots.add("7BLUE");
+        slots.add("7BLUE");
+        slots.add("7BLUE");
         slots.add("7WHITE");
-        slots.add("BAR");
         slots.add("CHERRY");
-        slots.add("WILD");
+        slots.add("CHERRY");
+        slots.add("CHERRY");
+        slots.add("CHERRY");
         slots.add("BLANK");
+        slots.add("BLANK");
+
     }
 
     public String getSlot(){
@@ -38,6 +51,7 @@ public class SevenFreeSlots implements Gamble {
 
         return slot1 + slot2 + slot3;
 
+        //use to string to format it nicely
     }
 
     // Game buttons

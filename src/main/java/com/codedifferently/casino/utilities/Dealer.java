@@ -36,21 +36,21 @@ public class Dealer {
      }
 
      public int convertToNumber(){
-        int total=0;
+        int total = 0;
         for (Card card : checkCards()) {
-            total+=card.getRank().returnRank();
+            total += card.getRank().returnRank();
         }
         return total;
     }
 
     public ArrayList<Integer> convertWithAces(){
         ArrayList<Integer> results=new ArrayList<Integer>();
-        int total=0;
-        int acesFound=0;
+        int total = 0;
+        int acesFound = 0;
 
         for (Card card : checkCards()) {
-            total+=card.getRank().returnRank();
-            if(card.getRank().returnRank()==1)
+            total += card.getRank().returnRank();
+            if(card.getRank().returnRank() == 1)
                 acesFound++;
         }
         results.add(total);
@@ -59,9 +59,7 @@ public class Dealer {
             if(total+10 <= 21)
                 results.add(total+10);
         }
-        
         return results;
-
     }
 
     public boolean compareToDealer(int PlayerNum){
@@ -69,14 +67,13 @@ public class Dealer {
         if(checkForAce()){
             convertWithAces();
             for (int value: convertWithAces()){
-                if(value>dealersNum) {
-                    dealersNum=value;
+                if(value>  dealersNum) {
+                    dealersNum = value;
                 }
         }
     }
         else dealersNum = convertToNumber();
         
-
         if(PlayerNum >= dealersNum){
             return true;
         } 
@@ -86,10 +83,9 @@ public class Dealer {
         else {
             return false;
         }
-
     }
 
-    }
+}
 
 
 
