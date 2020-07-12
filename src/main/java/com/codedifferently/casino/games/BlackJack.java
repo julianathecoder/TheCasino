@@ -178,15 +178,39 @@ public class BlackJack extends CardGame implements Gamble {
 
     public String showFirstDealerCard(){
         Card card=this.dealer.checkCards().get(0);
-        String output="---------- DEALERS HAND ----------\n";
+        String output="---------- DEALER'S HAND ----------\n";
         String output1=String.format("%s %s %s\n",card.getColor(),card.getRank(),card.getSuit());
         String output2=String.format("Current total: %d\n", card.getRank().returnRank());
         return output+output1+output2;
     }
 
     public String showDealersCards(){
-        return "";
+        String output="------ DEALER'S Hand -----\n";
+        for (Card card : this.dealer.checkCards()) {
+            output+=String.format("%s %s %s\n",card.getColor(),card.getRank(),card.getSuit());
+        }
+        if(this.dealer.checkForAce()){
+            int bestNum=0;
+            for (int value: this.dealer.convertWithAces()){
+                if(value>bestNum)
+                 bestNum=value;
+            }
+            output+=String.format("Current total: %d\n",bestNum);
+         }
+        else{
+            output+=String.format("Current total: %d\n",this.dealer.convertToNumber());
+        }
+        return output;
 
+    }
+
+    public String showPlayersCards(Player player){
+        String output=String.format("------ %s's Hand -----\n", player.getName());
+        for (Card card : player.checkCards()) {
+            output+=String.format("%s %s %s\n",card.getColor(),card.getRank(),card.getSuit());
+        }
+        output+=String.format("Current total: %s\n", convertToNumber(player));
+        return output;
     }
 
 

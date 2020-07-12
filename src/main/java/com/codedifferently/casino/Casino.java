@@ -63,8 +63,12 @@ public class Casino {
                         for (Player player : blackjack.getPlayerList()){
                             Player currentPlayer=player;
                             boolean done=false;
+                            
+                            // Displays Dealer's first card
+                            System.out.println(blackjack.showFirstDealerCard());
+
                             // Displays current player's hand
-                            checkHand(currentPlayer,blackjack);
+                            System.out.println(blackjack.showPlayersCards(currentPlayer));
 
                             // Checks for Ace
                             if(blackjack.checkForAce(player))
@@ -79,13 +83,13 @@ public class Casino {
                                     blackjack.hit(currentPlayer);
                                 else if(choice.equalsIgnoreCase("Double")){
                                     blackjack.doubleMove(currentPlayer); 
-                                    checkHand(currentPlayer,blackjack);
+                                    System.out.println(blackjack.showPlayersCards(currentPlayer));
                                     done=true;
                                 }
                                 // Checks if player busted
                                 if(blackjack.checkIfBusted(currentPlayer)){
                                     done=true;
-                                    checkHand(currentPlayer,blackjack);
+                                    System.out.println(blackjack.showPlayersCards(currentPlayer));;
                                     blackjack.lose(currentPlayer);
                                     System.out.println("You have busted, thank you for playing.");
                                 }
@@ -93,7 +97,7 @@ public class Casino {
                                 if(!done){
                                     if(blackjack.checkForAce(player))
                                         System.out.println(blackjack.convertWithAces(player));
-                                    checkHand(currentPlayer,blackjack);
+                                    System.out.println(blackjack.showPlayersCards(currentPlayer));
                                     System.out.printf("%s, What would you like to do? \n (Hit) (Stand) (Double)\n",currentPlayer.getName());
                                     choice=scan.next();
                                 }
@@ -102,6 +106,8 @@ public class Casino {
                             if(!blackjack.checkIfBusted(currentPlayer))
                                 blackjack.addStandingPlayer(currentPlayer);
                         }
+                        // Displays Dealer's cards
+                        System.out.println(blackjack.showDealersCards());
                         blackjack.calculateWinner();
                         System.out.println(blackjack.outcomeLog());
                         System.out.printf("Do you want to play again?: Yes/No\n");
@@ -184,14 +190,5 @@ public class Casino {
         
 
 
-    }
-    static void checkHand(Player player, BlackJack game){
-        System.out.printf("------ %s's Hand -----\n", player.getName());
-        for (Card card : player.checkCards()) {
-            System.out.printf("%s %s %s\n",card.getColor(),card.getRank(),card.getSuit());
-        }
-        System.out.printf("Current total: %s\n", game.convertToNumber(player));
-         System.out.println();
-        
     }
 }
