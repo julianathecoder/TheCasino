@@ -131,13 +131,6 @@ public class Casino {
                 }
             }
         }
-
-        
-
-
-        
-
-
     }
     static void checkHand(Player player, BlackJack game){
         System.out.printf("------ %s's Hand -----\n", player.getName());
