@@ -7,7 +7,6 @@ import java.util.Scanner;
 import com.codedifferently.casino.intereface.Gamble;
 import com.codedifferently.casino.utilities.Player;
 
-import jdk.javadoc.internal.doclets.toolkit.resources.doclets;
 
 public class SevenFreeSlots implements Gamble {
 
@@ -45,9 +44,9 @@ public class SevenFreeSlots implements Gamble {
     public void spinReels(Player player) {
         player.gamble(3);
 
-        slot1 =  slots.get((int)Math.Random() * 50 +1);
-        slot2 =  slots.get((int)Math.Random() * 50 +1);
-        slot3 =  slots.get((int)Math.Random() * 50 +1);
+        slot1 =  slots.get((int)Math.random() * 50 +1);
+        slot2 =  slots.get((int)Math.random() * 50 +1);
+        slot3 =  slots.get((int)Math.random() * 50 +1);
         for (int i = 0; i < slots.size(); i++) {
             System.out.println(slots.get(i));
         }
@@ -56,17 +55,17 @@ public class SevenFreeSlots implements Gamble {
     public void betMax(Player player) {
         player.gamble(3);
 
-        slot1 =  slots.get((int)Math.Random() * 50 +1);
-        slot2 =  slots.get((int)Math.Random() * 50 +1);
-        slot3 =  slots.get((int)Math.Random() * 50 +1);
+        slot1 =  slots.get((int)Math.random() * 50 +1);
+        slot2 =  slots.get((int)Math.random() * 50 +1);
+        slot3 =  slots.get((int)Math.random() * 50 +1);
     }
 
     public void betOne(Player player) {
         player.gamble(1);
 
-        slot1 =  slots.get((int)Math.Random() * 50 +1);
-        slot2 =  slots.get((int)Math.Random() * 50 +1);
-        slot3 =  slots.get((int)Math.Random() * 50 +1);
+        slot1 =  slots.get((int)Math.random() * 50 +1);
+        slot2 =  slots.get((int)Math.random() * 50 +1);
+        slot3 =  slots.get((int)Math.random() * 50 +1);
 
 
         // TODO: Push a button marked "Bet One" until you've reached the number of coins you wish to play

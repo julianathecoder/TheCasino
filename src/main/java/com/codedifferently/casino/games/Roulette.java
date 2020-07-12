@@ -1,21 +1,58 @@
 package com.codedifferently.casino.games;
 
+/**
+ * @author Filiberto Camarillo
+ */
 
 import java.util.Random;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-//import com.codedifferently.casino.intereface.Gamble;
+import com.codedifferently.casino.intereface.Gamble;
 //import com.codedifferently.casino.intereface.Game;
 //import com.codedifferently.casino.utilities.BallResults;
 //import com.codedifferently.casino.utilities.RouletteBall;
-//import com.codedifferently.casino.utilities.Player;
+import com.codedifferently.casino.utilities.Player;
 import com.codedifferently.casino.utilities.Rules;
 
 
 
+public class Roulette implements Gamble {
 
+    private HashMap<Player,Double> bets;
+    private ArrayList<Player> notBustedPlayers;
 
-public class Roulette {
+    public Roulette(){
+        this.bets=new HashMap<Player,Double>();
+        this.notBustedPlayers=new ArrayList<Player>();
+    }
+
+    public int getBetCount(){
+        return this.bets.size();
+    }
+
+    public ArrayList<Player> getNotBustedPlayers() {
+        return this.notBustedPlayers;
+    }
+
+    public void bet(Player player,double money) {
+        money=player.gamble(money);
+        this.bets.put(player, money);
+    }
+
+    public void win(Player player) {
+        double winnings=this.bets.get(player)*2;
+        player.giveMoney(winnings);
+        this.bets.replace(player, winnings);
+    }
+
+    public void lose(Player player) {
+        double lose=this.bets.get(player);
+        this.bets.replace(player, -lose);
+    }
+
+    //
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         System.out.println("Welcome to the Roulette Game...");
@@ -43,11 +80,6 @@ public class Roulette {
             }
     
         }
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
     
         //Setting up variables to be updated in the loop to be printed after game.
         String confirmationCashout = "";
@@ -59,7 +91,7 @@ public class Roulette {
         int payout = 0;
         int randomNum = 0;
         int money = 1000;
-        int rounds = 1;;
+        int rounds = 1;
         Random rand = new Random();
         
 
@@ -375,6 +407,14 @@ public class Roulette {
         System.out.println("");
         System.out.println("What would you like to bet on?");
     }
+
+	public static boolean playRoulette() {
+		return false;
+	}
+
+	public Player getPlayer() {
+		return null;
+	}
 }
 
 

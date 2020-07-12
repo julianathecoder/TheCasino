@@ -1,6 +1,6 @@
 package com.codedifferently.casino.utilities;
 
-import java.utl.ArrayList;
+import java.util.ArrayList;
 
 /**
  * @author Juliana Paul
@@ -11,7 +11,7 @@ public class Dealer {
     private ArrayList<Card> hand;
 
     public Dealer(){
-        this.hand = new Arraylist<Card>();
+        this.hand = new ArrayList<Card>();
     }
 
     public ArrayList<Card> checkCards(){
@@ -66,8 +66,8 @@ public class Dealer {
 
     public boolean compareToDealer(int PlayerNum){
         int dealersNum = 0;
-        if(checkForAce(this.hand)){
-            convertWithAces(this.hand);
+        if(checkForAce()){
+            convertWithAces();
             for (int value: convertWithAces()){
                 if(value>dealersNum) {
                     dealersNum=value;

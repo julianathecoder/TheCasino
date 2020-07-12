@@ -2,9 +2,6 @@ package com.codedifferently.casino.games;
 
 import org.junit.Test;
 
-import jdk.internal.jline.internal.TestAccessible;
-import sun.net.www.content.text.plain;
-
 /**
  * @author Juliana Paul
  */

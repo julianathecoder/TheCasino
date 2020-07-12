@@ -5,6 +5,8 @@ import java.util.Queue;
 import java.util.Scanner;
 
 import com.codedifferently.casino.games.BlackJack;
+import com.codedifferently.casino.games.Roulette;
+import com.codedifferently.casino.games.SevenFreeSlots;
 import com.codedifferently.casino.utilities.Card;
 import com.codedifferently.casino.utilities.Player;
 import com.codedifferently.casino.utilities.Rules;
@@ -130,7 +132,37 @@ public class Casino {
                     Thread.currentThread().interrupt();
                 }
             }
+        } 
+        
+        else {
+            Roulette roulette = new Roulette();
+            Scanner input = new Scanner(System.in);
+            System.out.println("Welcome to the Roulette Game...");
+            System.out.println("Have you played before? Y/N.");
+            String vCheck1 = input.nextLine();
+    
+            //Removes invalid inputs.
+            while (!(vCheck1.equals("Y")) && !(vCheck1.equals("N"))) {
+                System.out.println("Incorrect, please type Y/N.");
+                vCheck1 = input.nextLine();
+            }
+    
+            //If user inputs 'Y' (Yes), print below.
+            if (vCheck1.equals("Y")) {
+                System.out.println("Good luck!");
+            }
+    
+            //If user inputs 'N' (No), print Rules for Roulette.
+            if (vCheck1.equals("N")) {
+                System.out.println(Rules.rouletteRules());
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+    
         }
+    }
 
         
 
