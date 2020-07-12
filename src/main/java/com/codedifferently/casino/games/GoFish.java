@@ -1,6 +1,7 @@
 package com.codedifferently.casino.games;
 
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.ArrayList;
 
 import com.codedifferently.casino.utilities.Card;
@@ -203,7 +204,12 @@ public class GoFish extends CardGame{
     }
 
     public static void main(String[] args) {
-        GoFish goFishTest = new GoFish();
+
+        //Scanner sc = new Scanner(System.in);
+        String gameChoice = "Go Fish";
+
+        if(gameChoice.equalsIgnoreCase("Go Fish")){}
+            GoFish goFishTest = new GoFish();
         Player p1 = new Player("Eli", 15, 0);
         Player p2 = new Player("Azlia", 18, 0);
 
