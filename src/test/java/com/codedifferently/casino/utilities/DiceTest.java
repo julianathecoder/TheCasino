@@ -62,7 +62,7 @@ public class DiceTest {
     }
 
     @Test
-    public getRollTotalTest(){
+    public void getRollTotalTest() {
         //Given 
         int expectedRoll = Dice.getRollTotal();
 

@@ -5,6 +5,8 @@ import java.util.Queue;
 import java.util.Scanner;
 
 import com.codedifferently.casino.games.BlackJack;
+import com.codedifferently.casino.games.Roulette;
+import com.codedifferently.casino.games.SevenFreeSlots;
 import com.codedifferently.casino.utilities.Card;
 import com.codedifferently.casino.utilities.Player;
 import com.codedifferently.casino.utilities.Rules;
@@ -14,7 +16,6 @@ public class Casino {
         // For testing
         boolean gamePlaying=false;
         Scanner scan=new Scanner(System.in);
-        BlackJack blackjack = new BlackJack();
         Player bob=new Player("Bob",20,2030.00);
         Player bill=new Player("Bill",25,3400.00);
         Player jill=new Player("Jill",20,8000.00);
@@ -27,19 +28,20 @@ public class Casino {
         queue.add(lil);
         queue.add(john);
 
-        while(!queue.isEmpty()){
-            Player currentPlayer=queue.poll();
-            if(blackjack.checkIfValid(currentPlayer)){
-                if(blackjack.addPlayer(currentPlayer))
-                    System.out.printf("%s has joined the game %s\n",currentPlayer.getName(),blackjack.getGameName());
-            }
-            else{
-                System.out.printf("%s could not join the game %s\n",currentPlayer.getName(),blackjack.getGameName());
-            }
-        }
         System.out.printf("What would you like to play? \n (Go Fish) (Black Jack) (Craps) (Roulette)(Seven Free slots)\n");
         String gameChoice=scan.nextLine();
         if(gameChoice.equalsIgnoreCase("Black Jack")){
+            BlackJack blackjack = new BlackJack();
+            while(!queue.isEmpty()){
+                Player currentPlayer=queue.poll();
+                if(blackjack.checkIfValid(currentPlayer)){
+                    if(blackjack.addPlayer(currentPlayer))
+                        System.out.printf("%s has joined the game %s\n",currentPlayer.getName(),blackjack.getGameName());
+                }
+                else{
+                    System.out.printf("%s could not join the game %s\n",currentPlayer.getName(),blackjack.getGameName());
+                }
+            }
             System.out.printf("Do you want to read the rules of Black Jack? Yes/No \n");
             gameChoice=scan.nextLine();
             if(gameChoice.equalsIgnoreCase("yes"))
@@ -60,8 +62,12 @@ public class Casino {
                         for (Player player : blackjack.getPlayerList()){
                             Player currentPlayer=player;
                             boolean done=false;
+                            
+                            // Displays Dealer's first card
+                            System.out.println(blackjack.showFirstDealerCard());
+
                             // Displays current player's hand
-                            checkHand(currentPlayer,blackjack);
+                            System.out.println(blackjack.showPlayersCards(currentPlayer));
 
                             // Checks for Ace
                             if(blackjack.checkForAce(player))
@@ -76,13 +82,13 @@ public class Casino {
                                     blackjack.hit(currentPlayer);
                                 else if(choice.equalsIgnoreCase("Double")){
                                     blackjack.doubleMove(currentPlayer); 
-                                    checkHand(currentPlayer,blackjack);
+                                    System.out.println(blackjack.showPlayersCards(currentPlayer));
                                     done=true;
                                 }
                                 // Checks if player busted
                                 if(blackjack.checkIfBusted(currentPlayer)){
                                     done=true;
-                                    checkHand(currentPlayer,blackjack);
+                                    System.out.println(blackjack.showPlayersCards(currentPlayer));;
                                     blackjack.lose(currentPlayer);
                                     System.out.println("You have busted, thank you for playing.");
                                 }
@@ -90,7 +96,7 @@ public class Casino {
                                 if(!done){
                                     if(blackjack.checkForAce(player))
                                         System.out.println(blackjack.convertWithAces(player));
-                                    checkHand(currentPlayer,blackjack);
+                                    System.out.println(blackjack.showPlayersCards(currentPlayer));
                                     System.out.printf("%s, What would you like to do? \n (Hit) (Stand) (Double)\n",currentPlayer.getName());
                                     choice=scan.next();
                                 }
@@ -99,6 +105,8 @@ public class Casino {
                             if(!blackjack.checkIfBusted(currentPlayer))
                                 blackjack.addStandingPlayer(currentPlayer);
                         }
+                        // Displays Dealer's cards
+                        System.out.println(blackjack.showDealersCards());
                         blackjack.calculateWinner();
                         System.out.println(blackjack.outcomeLog());
                         System.out.printf("Do you want to play again?: Yes/No\n");
@@ -114,7 +122,7 @@ public class Casino {
                 }
             else
                 System.out.println("Not enough players to start, add more players.");
-        } else {
+        } else if(gameChoice.equalsIgnoreCase("Seven Free Slots")){
             SevenFreeSlots sevenFreeSlots = new SevenFreeSlots();
             Player player = new Player("jon", 19, 9);
             sevenFreeSlots.spinReels(player);
@@ -130,15 +138,38 @@ public class Casino {
                     Thread.currentThread().interrupt();
                 }
             }
-        }
-    }
-    static void checkHand(Player player, BlackJack game){
-        System.out.printf("------ %s's Hand -----\n", player.getName());
-        for (Card card : player.checkCards()) {
-            System.out.printf("%s %s %s\n",card.getColor(),card.getRank(),card.getSuit());
-        }
-        System.out.printf("Current total: %s\n", game.convertToNumber(player));
-         System.out.println();
+        } 
         
+        else if (gameChoice.equalsIgnoreCase("Roulette")){
+            Player player = new Player("Kevin", 21, 1000);
+            Roulette.mainRoulette();
+            /**Scanner input = new Scanner(System.in);
+            System.out.println("Welcome to the Roulette Game...");
+            System.out.println("Have you played before? Y/N.");
+            String vCheck1 = input.nextLine();
+    
+            //Removes invalid inputs.
+            while (!(vCheck1.equals("Y")) && !(vCheck1.equals("N"))) {
+                System.out.println("Incorrect, please type Y/N.");
+                vCheck1 = input.nextLine();
+            }
+    
+            //If user inputs 'Y' (Yes), print below.
+            if (vCheck1.equals("Y")) {
+                System.out.println("Good luck!");
+            }
+    
+            //If user inputs 'N' (No), print Rules for Roulette.
+            if (vCheck1.equals("N")) {
+                System.out.println(Rules.rouletteRules());
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+
+            }
+*/
+        }
     }
 }
