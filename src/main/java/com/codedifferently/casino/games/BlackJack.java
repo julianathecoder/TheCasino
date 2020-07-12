@@ -104,6 +104,8 @@ public class BlackJack extends CardGame implements Gamble {
         if(startGame()){
             shuffleDeck();
             dealCards(2);
+            this.dealer.checkCards().add(pullFromDeck());
+            this.dealer.checkCards().add(pullFromDeck());
         }
     }
 
@@ -148,11 +150,21 @@ public class BlackJack extends CardGame implements Gamble {
                    if(value>bestNum)
                     bestNum=value;
                }
-               // Compare best num with dealer's total, decide win or lose
-
+               if(this.dealer.compareToDealer(bestNum)){
+                   win(player);
+               }
+               else{
+                   lose(player);
+               }
+            }
+           else{
+               if(this.dealer.compareToDealer(convertToNumber(player))){
+                   win(player);
+               }
+               else{
+                   lose(player);
+               }
            }
-           // Compare best num with dealer's total, decide win or lose
-
        }
     }
 
@@ -164,11 +176,20 @@ public class BlackJack extends CardGame implements Gamble {
         return false;
     }
 
-    
+    public String showFirstDealerCard(){
+        Card card=this.dealer.checkCards().get(0);
+        String output="---------- DEALERS HAND ----------\n";
+        String output1=String.format("%s %s %s\n",card.getColor(),card.getRank(),card.getSuit());
+        String output2=String.format("Current total: %d\n", card.getRank().returnRank());
+        return output+output1+output2;
+    }
+
+    public String showDealersCards(){
+        return "";
+
+    }
 
 
-
-    
 
     
 }

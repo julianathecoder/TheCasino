@@ -17,7 +17,6 @@ public class Casino {
         // For testing
         boolean gamePlaying=false;
         Scanner scan=new Scanner(System.in);
-        BlackJack blackjack = new BlackJack();
         Player bob=new Player("Bob",20,2030.00);
         Player bill=new Player("Bill",25,3400.00);
         Player jill=new Player("Jill",20,8000.00);
@@ -30,19 +29,20 @@ public class Casino {
         queue.add(lil);
         queue.add(john);
 
-        while(!queue.isEmpty()){
-            Player currentPlayer=queue.poll();
-            if(blackjack.checkIfValid(currentPlayer)){
-                if(blackjack.addPlayer(currentPlayer))
-                    System.out.printf("%s has joined the game %s\n",currentPlayer.getName(),blackjack.getGameName());
-            }
-            else{
-                System.out.printf("%s could not join the game %s\n",currentPlayer.getName(),blackjack.getGameName());
-            }
-        }
         System.out.printf("What would you like to play? \n (Go Fish) (Black Jack) (Craps) (Roulette)(Seven Free slots)\n");
         String gameChoice=scan.nextLine();
         if(gameChoice.equalsIgnoreCase("Black Jack")){
+            BlackJack blackjack = new BlackJack();
+            while(!queue.isEmpty()){
+                Player currentPlayer=queue.poll();
+                if(blackjack.checkIfValid(currentPlayer)){
+                    if(blackjack.addPlayer(currentPlayer))
+                        System.out.printf("%s has joined the game %s\n",currentPlayer.getName(),blackjack.getGameName());
+                }
+                else{
+                    System.out.printf("%s could not join the game %s\n",currentPlayer.getName(),blackjack.getGameName());
+                }
+            }
             System.out.printf("Do you want to read the rules of Black Jack? Yes/No \n");
             gameChoice=scan.nextLine();
             if(gameChoice.equalsIgnoreCase("yes"))
