@@ -143,33 +143,6 @@ public class Casino {
         else if (gameChoice.equalsIgnoreCase("Roulette")){
             Player player = new Player("Kevin", 21, 1000);
             Roulette.mainRoulette();
-            /**Scanner input = new Scanner(System.in);
-            System.out.println("Welcome to the Roulette Game...");
-            System.out.println("Have you played before? Y/N.");
-            String vCheck1 = input.nextLine();
-    
-            //Removes invalid inputs.
-            while (!(vCheck1.equals("Y")) && !(vCheck1.equals("N"))) {
-                System.out.println("Incorrect, please type Y/N.");
-                vCheck1 = input.nextLine();
-            }
-    
-            //If user inputs 'Y' (Yes), print below.
-            if (vCheck1.equals("Y")) {
-                System.out.println("Good luck!");
-            }
-    
-            //If user inputs 'N' (No), print Rules for Roulette.
-            if (vCheck1.equals("N")) {
-                System.out.println(Rules.rouletteRules());
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-
-            }
-*/
         }
     }
 }
