@@ -6,9 +6,7 @@ import java.util.ArrayList;
 
 import com.codedifferently.casino.utilities.Card;
 import com.codedifferently.casino.utilities.Player;
-import com.codedifferently.casino.utilities.cardenums.Color;
 import com.codedifferently.casino.utilities.cardenums.Rank;
-import com.codedifferently.casino.utilities.cardenums.Suit;
 
 /**
  * @author Keseana Howard
@@ -38,22 +36,23 @@ public class GoFish extends CardGame{
             cardsPerPerson = 0;
     }
 
+    public void addGoFishPlayer(String name, int age){
+        Player player = new Player(name, age, 0);
+        addPlayer(player);
+    }
+
     public void initializePlayers(){
         for(Player player :  players){
             hmap.put(player, new ArrayList<Card>());
         }
     }
 
-    public int getCardsPerPerson(){
-        return cardsPerPerson;
+    public ArrayList<Player> getGoFishPlayersList(){
+        return players;
     }
 
-    public boolean ask(Player playerAsked, Rank rankWanted){
-        ArrayList<Card> hand = playerAsked.checkCards();
-
-        boolean cardFound = checkHand(hand, rankWanted);
-
-        return cardFound;
+    public int getCardsPerPerson(){
+        return cardsPerPerson;
     }
 
     public boolean checkHand(ArrayList<Card> hand, Rank rankWanted){
@@ -61,9 +60,17 @@ public class GoFish extends CardGame{
         for(Card current : hand){
             Rank rank = current.getRank();
             if(rank.equals(rankWanted))
-                return true;
+                return true; //rank was found
         }
-        return false;
+        return false; //rank NOT found
+    }
+
+    public boolean ask(Player playerAsked, Rank rankWanted){
+        ArrayList<Card> hand = hmap.get(playerAsked);
+
+        boolean cardFound = checkHand(hand, rankWanted);
+
+        return cardFound;
     }
 
     public HashMap<Player, ArrayList<Card>> getHashMap(){
@@ -123,13 +130,15 @@ public class GoFish extends CardGame{
                     count++;
             }
 
-            if(count == 4)
-                return removeBooks(player, one, hand);
+            if(count == 4){
+                removeBooks(player, one, hand);
+                return true;
+            }
         }
         return false;
     }
 
-    public boolean removeBooks(Player player, Card card2, ArrayList<Card> arrList){
+    public void removeBooks(Player player, Card card2, ArrayList<Card> arrList){
             
         ArrayList<Card> temp = new ArrayList<Card>();
         
@@ -143,8 +152,7 @@ public class GoFish extends CardGame{
         totalBookCount++;
         Rank rankToAdd = card2.getRank();
         addToBookLog(player, rankToAdd);
-
-        return true;  
+        showBooks(player);  
     }
 
     public int getTotalBookCount(){
@@ -163,20 +171,80 @@ public class GoFish extends CardGame{
         return stockPile;
     }
 
+    public void checkDeck(){
+        if(getDeckSize() == 0)
+            emptyStockPile();
+    }
+
     public void emptyStockPile(){
         deck.repopulateDeck(stockPile);
         stockPile.clear();
     }
 
-    public void playerTurn(Player playerAsking, Player playerAsked, Rank rankWanted){
-        boolean gotCards = ask(playerAsked, rankWanted);
+    public Rank getRankNeeded(String rank){
+        if(rank.equalsIgnoreCase("ace"))
+            return Rank.ACE;
+        else if(rank.equalsIgnoreCase("two"))
+            return Rank.DEUCE;
+        else if(rank.equalsIgnoreCase("three"))
+            return Rank.THREE;
+        else if(rank.equalsIgnoreCase("four"))
+            return Rank.FOUR;
+        else if(rank.equalsIgnoreCase("five"))
+            return Rank.FIVE;
+        else if(rank.equalsIgnoreCase("six"))
+            return Rank.SIX;
+        else if(rank.equalsIgnoreCase("seven"))
+            return Rank.SEVEN;
+        else if(rank.equalsIgnoreCase("eight"))
+            return Rank.EIGHT;
+        else if(rank.equalsIgnoreCase("nine"))
+            return Rank.NINE;
+        else if(rank.equalsIgnoreCase("TEN"))
+            return Rank.TEN;
+        else if(rank.equalsIgnoreCase("jack"))
+            return Rank.JACK;
+        else if(rank.equalsIgnoreCase("queen"))
+            return Rank.QUEEN;
+        else if(rank.equalsIgnoreCase("king"))
+            return Rank.KING;
+        return null;
+    }
 
-        if(gotCards)
-            giveCards(playerAsking, playerAsked, rankWanted);
-        else
+    public Player getPlayer(String name){
+
+        for(Player player : getGoFishPlayersList()){
+            String current = player.getName();
+            if(current.equalsIgnoreCase(name)){
+                return player;
+            }
+        }
+
+        return null;
+    }
+
+    public boolean playerTurn(Player playerAsking, Player playerAsked, Rank rankWanted){
+        boolean continueTurn = false;
+
+        if(hmap.get(playerAsking).size() == 0)
             pullFromDeck(playerAsking, rankWanted);
         
+        if(hmap.get(playerAsked).size() == 0)
+            return false;
+
+        boolean gotCards = ask(playerAsked, rankWanted);
+
+        if(gotCards){
+            giveCards(playerAsking, playerAsked, rankWanted);
+            continueTurn = true;
+        }
+        else
+            if(pullFromDeck(playerAsking, rankWanted))
+                continueTurn = true;
+        
         checkForBooks(playerAsking);
+
+        return continueTurn;
     }
 
     public void deal(){
@@ -190,9 +258,19 @@ public class GoFish extends CardGame{
     public String showBooks(Player player){
         ArrayList<Rank> out = bookLog.get(player);
 
-        String output = String.format("Number of Books: %d \tBooks: %s", out.size(), out.toString());
+        String output = String.format("Player: %s  Number of Books: %d  Books: %s", player.getName(), out.size(), out.toString());
 
         return output;
+    }
+
+    public void printAllPlayerBooks(){
+
+        for(Player player : getGoFishPlayersList()){
+            if(getBookLog().get(player) == null)
+                System.out.println("Player: " + player.getName() + " Number of Books: 0 \tBooks: ");
+            else
+                System.out.println(showBooks(player));
+        }
     }
 
     public String showHand(Player player){
@@ -205,43 +283,57 @@ public class GoFish extends CardGame{
 
     public static void main(String[] args) {
 
-        //Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         String gameChoice = "Go Fish";
 
-        if(gameChoice.equalsIgnoreCase("Go Fish")){}
-            GoFish goFishTest = new GoFish();
-        Player p1 = new Player("Eli", 15, 0);
-        Player p2 = new Player("Azlia", 18, 0);
+        if(gameChoice.equalsIgnoreCase("Go Fish")){
+            GoFish goFish = new GoFish();
+            
+            System.out.print("How many players will there be? ");
+            int numOfPlayers = sc.nextInt();
+            goFish.setCardNumber();
 
-        goFishTest.addPlayer(p1);
-        goFishTest.addPlayer(p2);
+            int playerCount = 0;
+            while(playerCount  != numOfPlayers){
+                System.out.print("Enter player's name: ");
+                String playerName = sc.next();
 
-        goFishTest.initializePlayers();
-        goFishTest.setCardNumber();
+                System.out.print("Enter the player's age: ");
+                int playerAge = sc.nextInt();
 
-        ArrayList<Card> p1Hand = goFishTest.getHashMap().get(p1);
-        ArrayList<Card> p2Hand = goFishTest.getHashMap().get(p2);
+                goFish.addGoFishPlayer(playerName, playerAge);
+            }
 
-        p1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.ACE));
-        p1Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.KING));
-        p1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
-        p1Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.KING));
-        p1Hand.add(new Card(Suit.DIAMONDS, Color.RED, Rank.ACE));
+            goFish.initializePlayers();
+            goFish.deal();
 
-        p2Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.ACE));
-        p2Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.QUEEN));
-        p2Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.THREE));
-        p2Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.KING));
-        p2Hand.add(new Card(Suit.SPADES, Color.RED, Rank.KING));
+            while(goFish.getTotalBookCount() != 13){
+                ArrayList<Player> players = goFish.getGoFishPlayersList();
 
-        goFishTest.giveCards(p1, p2, Rank.KING);
-        goFishTest.addToBookLog(p1, Rank.KING);
+                for(int i = 0; i < players.size(); i++){
+                    Player p1 = players.get(i);
+                    
+                    boolean continuePlayerTurn = false;
 
-        HashMap<Player, ArrayList<Rank>> temp = goFishTest.getBookLog();
-        for(Player p : temp.keySet()){
-            System.out.println(p.getName());
-            System.out.println(temp.get(p));
-            System.out.println(temp.get(p).size());
+                    do{
+                        goFish.showHand(p1);
+                        System.out.println("Who do you want to ask? ");
+                        String p2 = sc.next();
+                        System.out.print(p1.getName() + "what number do you want to ask for? ");
+                        String rank = sc.next();
+
+                        Player playerWanted = goFish.getPlayer(p2);
+                        Rank rankWanted = goFish.getRankNeeded(rank);
+
+                        if(goFish.playerTurn(p1, playerWanted, rankWanted))
+                            continuePlayerTurn = true;
+
+                        goFish.showHand(p1);
+
+                        goFish.checkDeck();
+                    }while(continuePlayerTurn == true);
+                }
+            }
         }
     }
 }
