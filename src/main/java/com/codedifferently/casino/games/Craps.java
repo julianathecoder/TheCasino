@@ -5,57 +5,66 @@ package com.codedifferently.casino.games;
 import java.util.HashMap;
 import com.codedifferently.casino.utilities.Dice;
 import com.codedifferently.casino.utilities.Player;
-//import java.util.Scanner;
-//import java.util.HashMap;
-//import com.codedifferently.casino.intereface.Gamble;
-//import com.codedifferently.casino.utilities.Rules;
-//import java.text.DecimalFormat;
+import java.util.Scanner;
+import com.codedifferently.casino.utilities.Rules;
 
-public class Craps{ //implements Gamble {
+public class Craps
+{ 
     public static final String Assert = null;
     private HashMap<Player,Double> bets;
-
-    private static double money;
-    private static Player player;
+    static Player player = new Player("Player", 22, 100);
+    static Scanner scan = new Scanner(System.in);
     private static double bet;
     private static int winnings;
     private static int losses;
     private Dice dice = new Dice();
-    private static Craps ob= new Craps();
+    private static Craps ob = new Craps();
     
+    static double gameMoney = 100;
+
     public Craps() {
-        this.bets = new HashMap<Player, Double>();  
+        this.bets = new HashMap<Player, Double>();
     }
-    public Craps(Player player) 
-    {
-        this.player = player;
+
+    public Craps(Player player) {
+        Craps.player = player;
     }
-    public Player getPlayer()
-    {
+
+    public Player getPlayer() {
         return this.player;
     }
-    public static double getBet()
-    {
+
+    public static double getBet() {
         return bet;
     }
-    public int getBetCount()
-    {
+
+    public int getBetCount() {
         return this.bets.size();
     }
-    public void clearBets()
-    {
+
+    public void clearBets() {
         this.bets.clear();
     }
-    
-    static int rollSum = Dice.getRollTotal();
+    public static boolean getGameStatus()
+    {
+        return gameStatus;
+    }
+    public static double getGameMoney()
+    {
+        return gameMoney;
+    }
 
-    static boolean playCraps() {
+    static int rollSum = Dice.getRollTotal();
+    static boolean gameStatus = true;
+
+    public static boolean playCraps() {
         if (rollSum == 2 || rollSum == 3 || rollSum == 12) {
             System.out.println(" Craps You loss with: " + rollSum);
             losses++;
         } else if (rollSum == 7 || rollSum == 11) {
             System.out.println("You win with: " + rollSum);
             winnings++;
+            return true;
         } else {
             int point = rollSum; // numbers such as 4, 5, 6, 8, 9, or 10
             System.out.println("Point: " + point);
@@ -80,82 +89,68 @@ public class Craps{ //implements Gamble {
         return false;
     }
 
-    public static void win() {// gives back two times the bet
+    public static void win() // gives back two times the bet
+    {
         if (playCraps() == true) {
-            // adds wagerMoney*2 to player money
-            money += (bet * 2);
-        }
-        else
-        {
-            Craps.lose();
+
+           gameMoney = gameMoney + bet + bet; // adds wagerMoney*2 to player money
+            System.out.println("Your game money is now, $" + (Craps.getGameMoney() + bet + bet));
+        } else {
+            System.out.println("Sorry, you lose the bet"); // player lost
         }
     }
 
     public static void lose() {
-        // does given bet back bet
+        // does give bet back bet
         System.out.println("Sorry, you lose the bet");
     }
-    
+
     public static void bet() {
         System.out.println(bet);
-        if(bet <= money)
-        {   
-            money = money - bet;
-        }
-        else
-        {
-            bet = 0;
+        System.out.println(gameMoney);
+    }
+    
+    public static void makeBet() {
+        if (getGameMoney() == 0) {
+            System.out.println("You don't have any game money");
+            System.out.println();
+            System.exit(0);
+        } else if (getGameMoney() >= bet && bet != 0) {
+            gameMoney = getGameMoney() - bet;
+            System.out.println("You have chosen to bet, $" + bet + ", goodluck.");
+        } /*else if (bet == 0) {
+            System.out.println("Input a number to make a bet");
+            System.out.println("You only have $" + getGameMoney() + " left, how much would you like to bet?");
+            bet = scan.nextInt();
+            gameMoney = getGameMoney() - bet;
+        }*/ else {
             System.out.println("You don't have enough money, make a smaller bet");
-            System.out.println("You have " + money + "$, left how much would you like to bet?"); 
+            System.out.println("You only have $" + getGameMoney() + " left, how much would you like to bet?");
+            bet = scan.nextInt();
+            gameMoney = getGameMoney() - bet;
         }
+
     }
 
-        /*Scanner scan = new Scanner(System.in);              //Will be added to Casino
-        System.out.println("How much would you like to bet?");
-        bet = scan.nextInt();  //Can use later
-        scan.close();*/
-        /*if(money == 0) {
-            System.out.println("You don't have any game money");
-        } 
-        else 
-        {   //ask user for bet
-            if (bet <= money)
-            {
-                money = money - bet;
-                System.out.println("You have chosen to bet, " + bet + "$, goodluck.");
-            } else
-            {
-                bet = 0;
-                System.out.println("You don't have enough money, make a smaller bet");
-                System.out.println("You have " + money + "$, left how much would you like to bet?");
-                //bet = scan.nextInt();
-        
-       
-        
-    
-    private static void crapsCommandsChart() {
-        System.out.println("Commands: | bet | money | help | restart |");
-        }
-
-    /*public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+    public static void main(String[] args)
+    {
+        Scanner scan = new Scanner(System.in);
         System.out.println("Hello\nWelcome to the Craps Game!!");
         System.out.println("Have you played before? Y/N.");
-        String vCheck1 = input.nextLine();
+        String ans = scan.nextLine();
 
         // Removes invalid inputs.
-        while (!(vCheck1.equals("Y")) && !(vCheck1.equals("N"))) {
+        while (!(ans.equalsIgnoreCase("Y")) && !(ans.equalsIgnoreCase("N"))) // used from Roulette
+        {
             System.out.println("Incorrect, please type Y/N.");
-            vCheck1 = input.nextLine();
+            ans = scan.nextLine();
         }
 
-        // If user inputs 'Y' (Yes), print below.
-        if (vCheck1.equals("Y")) {
+        if (ans.equalsIgnoreCase("Y")) {
             System.out.println("Good luck!");
         }
 
-        // If user inputs 'N' (No), print Rules for Roulette.
-        if (vCheck1.equals("N")) {
+        if (ans.equalsIgnoreCase("N")) {
             System.out.println(Rules.crapsRules());
             try {
                 Thread.sleep(10000);
@@ -164,49 +159,59 @@ public class Craps{ //implements Gamble {
             }
         }
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
 
-        //DecimalFormat g = new DecimalFormat("#.00%");
-        int dice1val = 0;
-        int dice2val = 0;
-        int rollSum = 0;
-        double winCount = 0;
-        double losses = 0;
-        int points = 0;
-        int rounds = 0;
-        //double money =  Craps.getGameMoney();
         System.out.println("Let's begin");
-        //System.out.println("You have " + money+ "$.");
-        System.out.println("What would you like to do?");
-        System.out.println("What would you like to do?");
-        crapsCommandsChart();
-        String answer = input.next();
-        while (!(answer.equals("bet")) && !(answer.equals("money")) && !(answer.equals("cashout")) &&
-                !(answer.equals("restart")) && !(answer.equals("help"))) {
-            System.out.println("Invalid choice, type 'help' to view the commands.");
-            System.out.println("");
-            System.out.println("What would you like to do?");
-            Craps.crapsCommandsChart();
-            answer = input.next();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
         }
 
+        System.out.println("You have, $" + player.getMoney());
 
+        while (gameStatus == true)
+        {
+        System.out.println("How much would you like to bet?");
+        bet = scan.nextInt();
+        System.out.println("You want to bet $" + bet);
+
+        try
+        {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
+
+        Craps.makeBet();
+
+        try
+        {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
+
+        System.out.println("You now have, $" + gameMoney + " left");
+        System.out.println("Rolling ....");
+
+        try
+        {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
+
+        Craps.playCraps();
         
-     }
-
-    public void win(Player player) {
+        Craps.win();
+        
     }
-
-    public void lose(Player player) {
-    
-    }
-    /*Scanner scan = new Scanner(System.in);
-    System.out.println("How much would you like to bet?");
-    bet = scan.nextInt();*/  //Can use later*/
-
-    
 }
-
+}
