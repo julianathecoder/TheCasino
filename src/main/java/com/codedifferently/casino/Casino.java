@@ -1,15 +1,17 @@
 package com.codedifferently.casino;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
 import com.codedifferently.casino.games.BlackJack;
+import com.codedifferently.casino.games.GoFish;
 import com.codedifferently.casino.games.Roulette;
 import com.codedifferently.casino.games.SevenFreeSlots;
-import com.codedifferently.casino.utilities.Card;
 import com.codedifferently.casino.utilities.Player;
 import com.codedifferently.casino.utilities.Rules;
+import com.codedifferently.casino.utilities.cardenums.Rank;
 
 public class Casino {
     public static void main(String[] args){
@@ -28,8 +30,10 @@ public class Casino {
         queue.add(lil);
         queue.add(john);
 
-        System.out.printf("What would you like to play? \n (Go Fish) (Black Jack) (Craps) (Roulette)(Seven Free slots)\n");
+        System.out.printf("\nWhat would you like to play? \n (Go Fish) (Black Jack) (Craps) (Roulette)(Seven Free slots)\n");
         String gameChoice=scan.nextLine();
+
+
         if(gameChoice.equalsIgnoreCase("Black Jack")){
             BlackJack blackjack = new BlackJack();
             while(!queue.isEmpty()){
@@ -144,5 +148,82 @@ public class Casino {
             Player player = new Player("Kevin", 21, 1000);
             Roulette.mainRoulette();
         }
+        
+        else if(gameChoice.equalsIgnoreCase("Go Fish")){
+            GoFish goFish = new GoFish();
+
+            System.out.print("\n\nWelcome to the Go Fish game!!!" + "\nDo you know how to play (Y/N)? ");
+            String choice = scan.nextLine();
+
+            if(choice.equalsIgnoreCase("y"))
+                System.out.println("Awesome! Good Luck!! :)");
+            if(choice.equalsIgnoreCase("n"))
+                System.out.println("That's okay, here are the rules:\n" + Rules.goFishRules());
+            
+            System.out.print("\nHow many players will be playing? ");
+            int numOfPlayers = scan.nextInt();
+            System.out.println(""); //buffer
+
+            if(numOfPlayers >= 2){
+                goFish.startGame();
+                int playerCount = 0;
+                while(playerCount  != numOfPlayers){
+                    System.out.print("Enter player's name: ");
+                    String playerName = scan.next();
+
+                    System.out.print("Enter the player's age: ");
+                    int playerAge = scan.nextInt();
+
+                    goFish.addGoFishPlayer(playerName, playerAge);
+                    playerCount++;
+
+                    System.out.println(""); //buffer
+                }
+
+                goFish.initializePlayers();
+                goFish.setCardNumber();
+                goFish.deal();
+
+                System.out.print("Each player has been dealt " + goFish.getCardsPerPerson() + " cards. The game will now begin...\n");
+
+                while(goFish.getTotalBookCount() != 13){
+                    ArrayList<Player> players = goFish.getGoFishPlayersList();
+
+                    for(int i = 0; i < players.size(); i++){
+                        Player p1 = players.get(i);
+                    
+                        boolean continuePlayerTurn = false;
+
+                        do{
+                            System.out.print("\t\tPlayers: ");
+                            goFish.printGoFishPlayerList();
+
+                            System.out.println(goFish.showHand(p1));
+                            System.out.print("\n\t" + p1.getName() + ", who do you want to ask? ");
+                            String p2 = scan.next();
+
+                            if(!(goFish.getPlayer(p2) == null)){
+                                System.out.print("\twhat number do you want to ask for? ");
+                                String rank = scan.next();
+
+                                Player playerWanted = goFish.getPlayer(p2);
+                                Rank rankWanted = goFish.getRankNeeded(rank);
+
+                                if(goFish.playerTurn(p1, playerWanted, rankWanted))
+                                    continuePlayerTurn = true;
+
+                                goFish.showHand(p1);
+                                goFish.checkDeck();
+                            }
+
+                            System.out.println(""); //buffer
+
+                        }while(continuePlayerTurn == true);
+                    }
+                }
+            } 
+            else    
+                System.out.println("You don't have enough players.");
+        }   
     }
 }

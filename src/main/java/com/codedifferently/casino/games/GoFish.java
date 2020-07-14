@@ -273,12 +273,33 @@ public class GoFish extends CardGame{
         }
     }
 
+    public void printGoFishPlayerList(){
+        ArrayList<Player> players = getGoFishPlayersList();
+        int i;
+
+        System.out.print("  ");
+        for(i = 0; i < players.size() - 1; i++)
+            System.out.print(players.get(i).getName() + " | ");
+        
+        System.out.println(players.get(i).getName());
+    }
+
     public String showHand(Player player){
         ArrayList<Card> hand = hmap.get(player);
 
-        String output = String.format("%s's Hand: %s", player.getName(), hand.toString());
+        String output = String.format("%s's Hand: %s", player.getName(), toString(player, hand));
 
         return output;
+    }
+
+    public String toString(Player player, ArrayList<Card> hand){
+        String results = "";
+
+        for(Card c : hand){
+            results += c.getRank() + " ";
+        }
+
+        return results;
     }
 
     public static void main(String[] args) {
