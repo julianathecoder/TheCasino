@@ -368,10 +368,10 @@ public class GoFishTest {
 
     @Test
     public void getRankNeededTest(){
-        String rankString = "sEVEN";
+        String rankString = "jack";
 
         Rank actual = goFishTest.getRankNeeded(rankString);
-        Rank expected = Rank.SEVEN;
+        Rank expected = Rank.JACK;
 
         Assert.assertEquals(expected, actual);
     }
@@ -390,7 +390,7 @@ public class GoFishTest {
     }
 
     @Test
-    public void playerTurn(){
+    public void playerTurnTest(){
         HashMap<Player, ArrayList<Card>> testMap = goFishTest.getHashMap();
         ArrayList<Card> p1Hand = testMap.get(p1);
         ArrayList<Card> p2Hand = testMap.get(p2);
@@ -414,13 +414,38 @@ public class GoFishTest {
     }
 
     @Test
+    public void playerTurnTest2(){
+        HashMap<Player, ArrayList<Card>> testMap = goFishTest.getHashMap();
+        ArrayList<Card> p1Hand = testMap.get(p1);
+        ArrayList<Card> p2Hand = testMap.get(p2);
+
+        p1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.ACE));
+        p1Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.KING));
+        p1Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.SEVEN));
+        p1Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.KING));
+        p1Hand.add(new Card(Suit.DIAMONDS, Color.RED, Rank.ACE));
+
+        p2Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.ACE));
+        p2Hand.add(new Card(Suit.CLUBS, Color.BLACK, Rank.FOUR));
+        p2Hand.add(new Card(Suit.SPADES, Color.BLACK, Rank.THREE));
+        p2Hand.add(new Card(Suit.HEARTS, Color.RED, Rank.KING));
+        p2Hand.add(new Card(Suit.SPADES, Color.RED, Rank.KING));
+
+        boolean actual = goFishTest.playerTurn(p1, p2, Rank.SEVEN);
+        boolean expected = false;
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
     public void dealTest(){
 
         goFishTest.deal();
         HashMap<Player, ArrayList<Card>> testMap = goFishTest.getHashMap();
+        ArrayList<Card> hand = testMap.get(p1);
 
-        boolean actual = testMap.isEmpty();
-        boolean expected = false;
+        int actual = hand.size();
+        int expected = 7;
 
         Assert.assertEquals(expected, actual);
     }

@@ -184,7 +184,7 @@ public class GoFish extends CardGame{
     public Rank getRankNeeded(String rank){
         if(rank.equalsIgnoreCase("ace"))
             return Rank.ACE;
-        else if(rank.equalsIgnoreCase("two"))
+        else if(rank.equalsIgnoreCase("two") || rank.equalsIgnoreCase("deuce"))
             return Rank.DEUCE;
         else if(rank.equalsIgnoreCase("three"))
             return Rank.THREE;
@@ -200,7 +200,7 @@ public class GoFish extends CardGame{
             return Rank.EIGHT;
         else if(rank.equalsIgnoreCase("nine"))
             return Rank.NINE;
-        else if(rank.equalsIgnoreCase("TEN"))
+        else if(rank.equalsIgnoreCase("ten"))
             return Rank.TEN;
         else if(rank.equalsIgnoreCase("jack"))
             return Rank.JACK;
@@ -238,17 +238,26 @@ public class GoFish extends CardGame{
             giveCards(playerAsking, playerAsked, rankWanted);
             continueTurn = true;
         }
-        else
-            if(pullFromDeck(playerAsking, rankWanted))
+        else{
+            if(!(pullFromDeck(playerAsking, rankWanted)))
+                continueTurn = false;
+            else
                 continueTurn = true;
-        
+        }
+
         checkForBooks(playerAsking);
 
         return continueTurn;
     }
 
     public void deal(){
-        dealCards(cardsPerPerson);
+
+        for (Player player : getGoFishPlayersList()) {
+            for(int i = 0 ;i < getCardsPerPerson(); i++){
+                ArrayList<Card> hand = hmap.get(player);
+                hand.add(pullFromDeck());
+            }
+        }
     }
 
     public int getDeckSize(){
@@ -300,61 +309,5 @@ public class GoFish extends CardGame{
         }
 
         return results;
-    }
-
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-        String gameChoice = "Go Fish";
-
-        if(gameChoice.equalsIgnoreCase("Go Fish")){
-            GoFish goFish = new GoFish();
-            
-            System.out.print("How many players will there be? ");
-            int numOfPlayers = sc.nextInt();
-            goFish.setCardNumber();
-
-            int playerCount = 0;
-            while(playerCount  != numOfPlayers){
-                System.out.print("Enter player's name: ");
-                String playerName = sc.next();
-
-                System.out.print("Enter the player's age: ");
-                int playerAge = sc.nextInt();
-
-                goFish.addGoFishPlayer(playerName, playerAge);
-            }
-
-            goFish.initializePlayers();
-            goFish.deal();
-
-            while(goFish.getTotalBookCount() != 13){
-                ArrayList<Player> players = goFish.getGoFishPlayersList();
-
-                for(int i = 0; i < players.size(); i++){
-                    Player p1 = players.get(i);
-                    
-                    boolean continuePlayerTurn = false;
-
-                    do{
-                        goFish.showHand(p1);
-                        System.out.println("Who do you want to ask? ");
-                        String p2 = sc.next();
-                        System.out.print(p1.getName() + "what number do you want to ask for? ");
-                        String rank = sc.next();
-
-                        Player playerWanted = goFish.getPlayer(p2);
-                        Rank rankWanted = goFish.getRankNeeded(rank);
-
-                        if(goFish.playerTurn(p1, playerWanted, rankWanted))
-                            continuePlayerTurn = true;
-
-                        goFish.showHand(p1);
-
-                        goFish.checkDeck();
-                    }while(continuePlayerTurn == true);
-                }
-            }
-        }
     }
 }

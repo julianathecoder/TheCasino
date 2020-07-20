@@ -165,7 +165,9 @@ public class Casino {
             System.out.println(""); //buffer
 
             if(numOfPlayers >= 2){
-                goFish.startGame();
+
+                goFish.shuffleDeck();
+                
                 int playerCount = 0;
                 while(playerCount  != numOfPlayers){
                     System.out.print("Enter player's name: ");
@@ -198,9 +200,15 @@ public class Casino {
                             System.out.print("\t\tPlayers: ");
                             goFish.printGoFishPlayerList();
 
-                            System.out.println(goFish.showHand(p1));
+                            System.out.println("\n" + goFish.showHand(p1));
+
                             System.out.print("\n\t" + p1.getName() + ", who do you want to ask? ");
                             String p2 = scan.next();
+
+                            while(!(goFish.getGoFishPlayersList().contains(goFish.getPlayer(p2)))){
+                                System.out.print("I'm sorry, that player is not currently in the game. Enter another name: ");
+                                p2 = scan.next();
+                            }   
 
                             if(!(goFish.getPlayer(p2) == null)){
                                 System.out.print("\twhat number do you want to ask for? ");
