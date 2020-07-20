@@ -37,6 +37,7 @@ public class Casino {
         if(gameChoice.equalsIgnoreCase("Black Jack")){
             BlackJack blackjack = new BlackJack();
             while(!queue.isEmpty()){
+                // Checking if they are able to enter a casino and gamble
                 Player currentPlayer=queue.poll();
                 if(blackjack.checkIfValid(currentPlayer)){
                     if(blackjack.addPlayer(currentPlayer))

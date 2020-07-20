@@ -86,9 +86,10 @@ public class BlackJack extends CardGame implements Gamble {
 
     public void doubleMove(Player player){
         this.dealer.dealCard(player);
-        double moneyDoubled=this.bets.get(player) * 2;
-        this.bets.remove(player);
-        bet(player, moneyDoubled);
+        double moneyDoubled=this.bets.get(player);
+        player.giveMoney(moneyDoubled);
+        moneyDoubled=player.gamble(moneyDoubled*2);
+        this.bets.replace(player, moneyDoubled);
     }
 
     public void insurance(Player player){
